@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+
+    tools:context=".activity_select">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/eyes" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/apple"
+            android:text="SeeYourSound"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="200dp"
+            />
+
+        <com.google.android.gms.common.SignInButton
+
+            android:id="@+id/btn_google_sign_in"
+            android:fontFamily="@font/apple"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="5dp"
+            />
+
+
+
+
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:fontFamily="@font/apple"
+            android:id="@+id/signin"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/buttonshape"
+            android:text="이메일로 회원가입"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+             />
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- 기존 TextView -->
+            <TextView
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple"
+                android:text=" 이미 가입하셨나요 ?"
+
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
+
+            <!-- 로그인 버튼을 AppCompatButton으로 변경 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:fontFamily="@font/apple"
+                android:id="@+id/signin2"
+                android:layout_width="50dp"
+                android:layout_height="16dp"
+                android:background="@drawable/buttonshape2"
+                android:text="로그인"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+            />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</FrameLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "887151907918",
+    "project_id": "seeyoursound-d16ca",
+    "storage_bucket": "seeyoursound-d16ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887151907918:android:fd18e62b977925cf459f1f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887151907918-sl5ulccodg3u1lkgt9seltnem5d0tvmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnfIK2oc8lWy_kxLI2ZW_HcssS-wT7o1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887151907918-sl5ulccodg3u1lkgt9seltnem5d0tvmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
