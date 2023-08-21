@@ -16,7 +16,7 @@ import android.util.Base64;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import com.kakao.sdk.common.KakaoSdk;
+
 import android.os.Bundle;
 
 import android.util.Log;
@@ -27,7 +27,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.kakao.sdk.common.util.Utility;
+
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -47,7 +47,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
-import com.kakao.sdk.common.util.Utility;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 

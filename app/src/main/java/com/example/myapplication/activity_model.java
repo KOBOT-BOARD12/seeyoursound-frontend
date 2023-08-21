@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
@@ -31,12 +33,15 @@ import java.io.IOException;
 public class activity_model extends AppCompatActivity {
 
     Button start_Button;
-    Button option_Button;
+    ImageView logoImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
+        logoImageView = findViewById(R.id.logoImageView); // 이미지뷰 찾기
 
+        Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
+        logoImageView.startAnimation(rotationAnimation);
 
         start_Button = findViewById(R.id.start_Button);
 

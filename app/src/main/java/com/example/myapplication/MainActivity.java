@@ -97,25 +97,38 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         webSocket = client.newWebSocket(request, listener);
 
-        Button startRecordingButton = findViewById(R.id.startRecordingButton);
-        Button stopRecordingButton = findViewById(R.id.stopRecordingButton);
+        Button recordingButton = findViewById(R.id.recordingButton);
         Button reservationButton = findViewById(R.id.reservationButton);
 
 
-        startRecordingButton.setOnClickListener(v -> startRecording());
+        recordingButton.setOnClickListener(v -> {
+            if (!isRecording) {
+                startRecording();
+                recordingButton.setText("Stop Seeing"); // 버튼 텍스트 변경
+                isRecording = true; // 녹음 상태를 true로 설정
+            } else {
+                // Stop 버튼은 녹음 중에만 활성화되도록 설정
+                recordingButton.setEnabled(false);
+                    stopRecording();
+                    recordingButton.setText("Start Seeing"); // 버튼 텍스트 변경
+                    isRecording = false; // 녹음 상태를 false로 설정
+                ;
+            }
+
+        });
 
 
 
-        stopRecordingButton.setOnClickListener(v -> stopRecording());
+
 
 
 
         // 예약어 버튼 클릭 이벤트 처리
         reservationButton.setOnClickListener(v -> {
 
-                // SendMessageActivity로 넘어가는 코드
-                Intent intent = new Intent(MainActivity.this, SendMessageActivity.class);
-                startActivity(intent);
+            // SendMessageActivity로 넘어가는 코드
+            Intent intent = new Intent(MainActivity.this, SendMessageActivity.class);
+            startActivity(intent);
 
 
         });

@@ -28,7 +28,7 @@
 
 
         <activity
-            android:name=".activity_select"
+            android:name=".activity_model"
             android:exported="true"
             android:label="SeeYourSound"
             android:theme="@style/Theme.MyApplication">
@@ -51,7 +51,7 @@
             android:name=".ReservationListActivity"
             android:label="reservation Activity" />
         <activity
-            android:name=".activity_model"
+            android:name=".activity_select"
             android:label="model activity"/>
     </application>
 
