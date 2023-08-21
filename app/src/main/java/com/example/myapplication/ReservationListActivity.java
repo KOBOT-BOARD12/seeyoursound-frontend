@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,12 +26,18 @@ public class ReservationListActivity extends Activity {
 
         Button sendRequestButton = findViewById(R.id.sendRequestButton);
         TextView responseTextView = findViewById(R.id.responseTextView);
-
+        Button backButton = findViewById(R.id.backButton) ;
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendRequestToServer(responseTextView);
             }
+        });
+
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ReservationListActivity.this, SendMessageActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
 
@@ -39,7 +46,7 @@ public class ReservationListActivity extends Activity {
 
     private void sendRequestToServer(final TextView responseTextView) {
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "http://10.30.113.200:8000/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "http://10.30.118.74:8000/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         String id = new String() ;
         id = "20191621" ;
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");

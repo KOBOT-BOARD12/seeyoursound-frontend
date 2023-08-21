@@ -4,53 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center"
     tools:context=".SendMessageActivity">
 
-    <EditText
-        android:id="@+id/messageEditText"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backButton"
+        android:layout_width="60dp"
+
+        android:layout_height="60dp"
+
+        android:layout_gravity="left"
+        android:background="@drawable/back"
         android:fontFamily="@font/apple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="알림 받고싶은 예약어를 등록하세요 ! "
-        />
+        android:paddingStart="16dp"
+        android:textColor="#000000"
 
-    <Button
-        android:id="@+id/sendButton"
-        android:fontFamily="@font/apple"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="예약어 등록하기"
-        android:onClick="sendMessage"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="20sp" />
 
 
-        android:background="@drawable/buttonshape"/>
-
-    <Button
-        android:id="@+id/reservationButton"
-        android:fontFamily="@font/apple"
-        android:text="예약어 목록"
-        android:layout_marginTop="20dp"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-
-
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:background="@drawable/buttonshape"
-        />
 
     <TextView
         android:fontFamily="@font/apple"
-        android:id="@+id/statusTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status"
+        android:text="인식하고 싶은 예약어를 입력해주세요 "
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="70dp"/>
+
+    <EditText
+        android:id="@+id/messageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/apple"
+        android:gravity="center"
+        android:layout_marginTop="130dp"
+
+        android:hint="EX) 위험해!, 창엽아!, 저기요! .. " />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="@font/apple"
+        android:onClick="sendMessage"
+        android:layout_gravity="center"
+        android:text="Regist your keyword"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="20dp"
-        android:textSize="12sp" />
+
+
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/reservationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="@font/apple"
+        android:layout_gravity="center"
+
+        android:text="keyword list"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+
+
 
 </LinearLayout>

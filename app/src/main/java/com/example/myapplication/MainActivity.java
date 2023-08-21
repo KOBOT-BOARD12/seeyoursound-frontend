@@ -8,7 +8,10 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.EditText;
 
@@ -46,7 +49,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private boolean isRecording = false;
     private AudioRecord audioRecord;
     private WebSocket webSocket;
-
+    ImageView logoImageView;
     public EditText messageEditText;
 
 
@@ -54,7 +57,11 @@ public class MainActivity extends Activity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
+
+        Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
 
 
 
@@ -65,7 +72,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
 
-        String serverUrl = "ws://10.30.118.111:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
+        String serverUrl = "ws://10.30.118.74:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -80,9 +87,23 @@ public class MainActivity extends Activity implements SensorEventListener {
             }
 
             @Override
-            public void onMessage(@NonNull WebSocket webSocket, @NonNull ByteString bytes) {
-                // 서버로부터 바이트 스트림 메시지를 수신할 때 실행되는 코드 (필요에 따라 추가 작업 수행)
+            public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
+
+                runOnUiThread(() -> {
+                    try {
+                        JSONObject jsonObject = new JSONObject(text);
+                        String location = jsonObject.optString("location", "unknown"); // "location" 필드의 값을 추출하되, 기본값은 "unknown"으로 설정
+                        String reservation = jsonObject.optString("reservation", "unknown"); // "reservation" 필드의 값을 추출하되, 기본값은 "unknown"으로 설정
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
+
+
 
             @Override
             public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
@@ -99,9 +120,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         Button recordingButton = findViewById(R.id.recordingButton);
         Button reservationButton = findViewById(R.id.reservationButton);
-
+        Button backButton = findViewById(R.id.backButton) ;
 
         recordingButton.setOnClickListener(v -> {
+            logoImageView.startAnimation(rotationAnimation);
             if (!isRecording) {
                 startRecording();
                 recordingButton.setText("Stop Seeing"); // 버튼 텍스트 변경
@@ -110,12 +132,23 @@ public class MainActivity extends Activity implements SensorEventListener {
                 // Stop 버튼은 녹음 중에만 활성화되도록 설정
                 recordingButton.setEnabled(false);
                     stopRecording();
+                    rotationAnimation.cancel();
+                    float currentRotation = logoImageView.getRotation(); // 현재 회전 각도 가져오기
+                    logoImageView.setRotation(currentRotation); // 정지된 각도로 설정
+                    logoImageView.clearAnimation(); // 새로운 애니메이션을 설정하지 않도록 애니메이션을 지움
                     recordingButton.setText("Start Seeing"); // 버튼 텍스트 변경
                     isRecording = false; // 녹음 상태를 false로 설정
                 ;
             }
 
         });
+
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, activity_model.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
+
 
 
 
@@ -129,7 +162,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             // SendMessageActivity로 넘어가는 코드
             Intent intent = new Intent(MainActivity.this, SendMessageActivity.class);
             startActivity(intent);
-
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         });
 
@@ -249,6 +282,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     }
 
     private void stopRecording() {
+
         isRecording = false;
 
         if (webSocket != null) {
@@ -256,6 +290,9 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
 
     }
+
+
+
 
     private void updateStatusText(String message) {
         TextView statusTextView = findViewById(R.id.statusTextView);

@@ -34,7 +34,7 @@ public class SendMessageActivity extends Activity  {
         messageEditText = findViewById(R.id.messageEditText);
         Button sendButton = findViewById(R.id.sendButton);
         Button reservationButton = findViewById(R.id.reservationButton);
-
+        Button backButton = findViewById(R.id.backButton) ;
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,9 +53,16 @@ public class SendMessageActivity extends Activity  {
 
 
         reservationButton.setOnClickListener(v -> {
-
-            Intent intent = new Intent(this, ReservationListActivity.class);
+            Intent intent = new Intent(SendMessageActivity.this, ReservationListActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        });
+
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
 
@@ -112,6 +119,12 @@ public class SendMessageActivity extends Activity  {
             }
         });
     }
+
+
+
+
+
+
 
     private void updateStatusText(String message) {
         TextView statusTextView = findViewById(R.id.statusTextView);

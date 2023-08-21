@@ -110,6 +110,7 @@ public class activity_select extends AppCompatActivity {
                 Intent intent = new Intent(activity_select.this, activity_login.class);
                 startActivity(intent);
 
+
             }
 
         });
