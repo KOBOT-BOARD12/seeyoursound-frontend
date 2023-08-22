@@ -27,6 +27,7 @@ public class ReservationListActivity extends Activity {
         Button sendRequestButton = findViewById(R.id.sendRequestButton);
         TextView responseTextView = findViewById(R.id.responseTextView);
         Button backButton = findViewById(R.id.backButton) ;
+
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

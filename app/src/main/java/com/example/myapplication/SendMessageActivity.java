@@ -35,6 +35,8 @@ public class SendMessageActivity extends Activity  {
         Button sendButton = findViewById(R.id.sendButton);
         Button reservationButton = findViewById(R.id.reservationButton);
         Button backButton = findViewById(R.id.backButton) ;
+        Button homeButton = findViewById(R.id.homeButton) ;
+        Button noticeButton = findViewById(R.id.noticeButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +54,8 @@ public class SendMessageActivity extends Activity  {
 
 
 
+
+
         reservationButton.setOnClickListener(v -> {
             Intent intent = new Intent(SendMessageActivity.this, ReservationListActivity.class);
             startActivity(intent);
@@ -64,6 +68,21 @@ public class SendMessageActivity extends Activity  {
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
+
+        homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        });
+
+        noticeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SendMessageActivity.this, activity_notice.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        });
+
 
 
 
