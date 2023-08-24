@@ -53,6 +53,13 @@
         android:alpha="0.1"
         android:background="#808080"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sival"
+        android:id="@+id/noticeview"
+        />
+
 
 
 

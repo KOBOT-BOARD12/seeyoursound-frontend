@@ -16,10 +16,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
+import com.google.firebase.auth.FirebaseUser;
+import android.app.PendingIntent;
 import androidx.core.app.NotificationCompat;
-
+import android.os.Handler;
 import android.content.Intent;
 
 import android.util.Base64;
@@ -40,7 +40,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
-
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends Activity implements SensorEventListener {
@@ -74,9 +74,13 @@ public class MainActivity extends Activity implements SensorEventListener {
     // Notification에 대한 ID 생성
     private static final int NOTIFICATION_ID = 0;
 
+    ImageView eastImageView ;
+    ImageView westImageView ;
+    ImageView southImageView ;
+    ImageView northImageView ;
 
-
-
+    int count = 1;
+    private boolean isAnimating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +89,23 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         setContentView(R.layout.activity_main);
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
+        eastImageView = findViewById(R.id.east);
+        westImageView = findViewById(R.id.west);
+        southImageView = findViewById(R.id.south);
+        northImageView = findViewById(R.id.north);
 
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
+        Animation fadein_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_in);
+        Animation fadeout_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_out);
+
+        if (count == 1){
+            eastImageView.startAnimation(fadeout_Animation);
+            westImageView.startAnimation(fadeout_Animation);
+            southImageView.startAnimation(fadeout_Animation);
+            northImageView.startAnimation(fadeout_Animation);
+
+            count ++;
+        }
 
 
 
@@ -114,14 +133,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         recordingButton.setOnClickListener(v -> {
             logoImageView.startAnimation(rotationAnimation);
-            // 자이로스코프 센서를 사용하기 위해 센서 매니저를 생성합니다.
             sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-            // 자이로스코프 센서를 가져옵니다.
             gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 
-            String serverUrl = "ws://10.30.112.144:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
+            String serverUrl = "ws://10.30.115.220:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -141,6 +158,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                     runOnUiThread(() -> {
                         try {
+
                             JSONObject jsonObject = new JSONObject(text);
                             prediction_class = jsonObject.optString("prediction_class", "unknown");
                             keyword = jsonObject.optString("keyword", "unknown");
@@ -161,7 +179,22 @@ public class MainActivity extends Activity implements SensorEventListener {
                             }
 
 
-                            sendNotification();
+
+                            if (direction.equals("동쪽")) {
+                                eastImageView.startAnimation(fadein_Animation);
+                            } else if (direction.equals("서쪽")) {
+                                westImageView.startAnimation(fadein_Animation);
+                            } else if (direction.equals("남쪽")) {
+                                southImageView.startAnimation(fadein_Animation);
+                            } else if (direction.equals("북쪽")) {
+                                northImageView.startAnimation(fadein_Animation);
+                            }
+
+
+
+
+
+                            //sendNotification();
 
 
                         } catch (JSONException e) {
@@ -172,12 +205,26 @@ public class MainActivity extends Activity implements SensorEventListener {
                 }
 
 
+
                 // Notification Builder를 만드는 메소드
 
 
                 // Notification을 보내는 메소드
                 public void sendNotification(){
-                    NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
+
+
+                    // Notification 생성
+                    NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(MainActivity.this, PRIMARY_CHANNEL_ID)
+                            .setContentTitle("새로운 음성이 탐색되었습니다!")
+                            .setSmallIcon(R.drawable.eyes)
+                            .setAutoCancel(true);
+
+                    if(keyword.equals("unknown")){
+                        notifyBuilder.setContentText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") ;
+                    } else {
+                        notifyBuilder.setContentText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! ") ;
+                    }
+
                     mNotificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
                 }
 
@@ -202,20 +249,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                 }
 
-                private NotificationCompat.Builder getNotificationBuilder() {
-                    NotificationCompat.Builder Builder = new NotificationCompat.Builder(MainActivity.this, PRIMARY_CHANNEL_ID)
-                            .setContentTitle("새로운 음성이 탐색되었습니다!")
-                            .setSmallIcon(R.drawable.eyes);
 
-                    if(keyword.equals("unknown")){
-                        Builder.setContentText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") ;
-                    } else {
-                        Builder.setContentText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! ") ;
-                    }
-
-
-                    return Builder;
-                }
 
 
 
@@ -345,6 +379,8 @@ public class MainActivity extends Activity implements SensorEventListener {
     private void startRecording() {
 
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
@@ -396,6 +432,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                     try {
                         jsonObject.put("top_channel", Base64.encodeToString(leftChannelData, Base64.DEFAULT));
                         jsonObject.put("bottom_channel", Base64.encodeToString(rightChannelData, Base64.DEFAULT));
+                        jsonObject.put("uid", uid);
                         jsonObject.put("gy_x", x);
                         jsonObject.put("gy_y", y);
                         jsonObject.put("gy_z", z);
