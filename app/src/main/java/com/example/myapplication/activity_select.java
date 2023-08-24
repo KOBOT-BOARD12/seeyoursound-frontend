@@ -2,9 +2,15 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.InputStream;
@@ -78,7 +84,7 @@ public class activity_select extends AppCompatActivity {
     Button sign;
     Button log;
     // 구글 계정
-
+    ImageView logoImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -86,7 +92,10 @@ public class activity_select extends AppCompatActivity {
 
         setContentView(R.layout.activity_select);
 
+        logoImageView = findViewById(R.id.logoimageview); // 이미지뷰 찾기
 
+        Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
+        logoImageView.startAnimation(rotationAnimation);
 
         SignInButton signInButton = findViewById(R.id.btn_google_sign_in);
         TextView textView = (TextView) signInButton.getChildAt(0);

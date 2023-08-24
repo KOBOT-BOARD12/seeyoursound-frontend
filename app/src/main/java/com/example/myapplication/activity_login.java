@@ -50,7 +50,7 @@ public class activity_login extends AppCompatActivity {
 
 
                                 // 로그인 성공 후의 동작 구현
-                                Intent intent = new Intent(activity_login.this, activity_model.class);
+                                Intent intent = new Intent(activity_login.this, MainActivity.class);
                                 startActivity(intent);
                                 finish(); // 로그인 화면을 종료
                             } else {

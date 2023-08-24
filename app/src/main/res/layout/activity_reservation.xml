@@ -10,48 +10,90 @@
     tools:context=".SendMessageActivity">
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backButton"
-        android:fontFamily="@font/apple"
-
-        android:paddingStart="16dp"
-
-        android:background="@drawable/back"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:layout_width="60dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="60dp"
 
-        android:layout_gravity="left"
-        />
+        android:orientation="horizontal">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backButton"
+            android:layout_width="60dp"
 
-    <Button
-        android:fontFamily="@font/apple"
-        android:id="@+id/sendRequestButton"
-        android:text="Click"
+            android:layout_height="60dp"
 
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:layout_marginTop="250dp"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonshape"
-        />
+            android:layout_gravity="left"
+            android:background="@drawable/back"
+            android:fontFamily="@font/apple"
+            android:paddingStart="16dp"
+            android:textColor="#000000"
+
+            android:textSize="20sp" />
+
+        <TextView
+            android:text="Keyword Tap"
+            android:fontFamily="@font/apple"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
 
     <TextView
-        android:fontFamily="@font/apple"
         android:id="@+id/responseTextView"
-
-        android:text="KEY WORD"
-        android:textColor="#000000"
-        android:textSize="10sp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
 
-         />
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="240dp"
+        android:fontFamily="@font/apple"
+        android:text="Loading..."
+        android:textColor="#000000"
+        android:textSize="30sp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/homeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/home"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reservationButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/reser"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/noticeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/notice_1"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_select"
             android:exported="true"
             android:label="SeeYourSound"
             android:theme="@style/Theme.MyApplication">
@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_login"
+        <activity android:name=".MainActivity"
             android:label="login" />
         <activity android:name=".activity_model"
             android:label="main" />
@@ -52,7 +52,7 @@
             android:name=".ReservationListActivity"
             android:label="reservation Activity" />
         <activity
-            android:name=".activity_select"
+            android:name=".activity_login"
             android:label="model activity"/>
         <activity
             android:name=".activity_notice"

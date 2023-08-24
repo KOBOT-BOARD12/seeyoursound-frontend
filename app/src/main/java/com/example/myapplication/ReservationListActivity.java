@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONException;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,16 +28,16 @@ public class ReservationListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation);
 
-        Button sendRequestButton = findViewById(R.id.sendRequestButton);
+
         TextView responseTextView = findViewById(R.id.responseTextView);
         Button backButton = findViewById(R.id.backButton) ;
+        Button homeButton = findViewById(R.id.homeButton) ;
+        Button reserButton = findViewById(R.id.reservationButton);
+        Button noticeButton =findViewById(R.id.noticeButton);
 
-        sendRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendRequestToServer(responseTextView);
-            }
-        });
+
+        sendRequestToServer(responseTextView);
+
 
         backButton.setOnClickListener(v -> {
             Intent intent = new Intent(ReservationListActivity.this, SendMessageActivity.class);
@@ -41,17 +45,38 @@ public class ReservationListActivity extends Activity {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
+        homeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ReservationListActivity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
+
+        reserButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ReservationListActivity.this, SendMessageActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
+
+        noticeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ReservationListActivity.this, activity_notice.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
+
+
+
+
 
     }
 
 
     private void sendRequestToServer(final TextView responseTextView) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "http://10.30.118.74:8000/return_keyword"; // FastAPI 서버의 URL을 입력하세요
-        String id = new String() ;
-        id = "20191621" ;
+        String serverUrl = "http://10.30.118.68:8000/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        String requestBodyString = "{ \"user_id\": \"" + id + "\"}" ;
+        String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
 
         Request request = new Request.Builder()
@@ -91,7 +116,7 @@ public class ReservationListActivity extends Activity {
                         JSONObject jsonObject = new JSONObject(responseData);
                         JSONArray keywordsArray = jsonObject.getJSONArray("keywords");
 
-                        StringBuilder keywordsText = new StringBuilder("Keywords:\n");
+                        StringBuilder keywordsText = new StringBuilder("등록된 Keywords : \n");
 
                         for (int i = 0; i < keywordsArray.length(); i++) {
                             keywordsText.append(keywordsArray.getString(i)).append("\n");

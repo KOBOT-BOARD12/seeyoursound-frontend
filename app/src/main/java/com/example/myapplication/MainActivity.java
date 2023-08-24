@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private Sensor sensor;
     private float[] gyroscopeValues = new float[3];
-    private static final int SAMPLE_RATE = 44100;
+    private static final int SAMPLE_RATE = 16000;
     private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
     private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)*25;
@@ -97,13 +97,18 @@ public class MainActivity extends Activity implements SensorEventListener {
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
         Animation fadein_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         Animation fadeout_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_out);
+        Animation firstout_Animation = AnimationUtils.loadAnimation(this,R.anim.first_out);
+        Animation east_rotate = AnimationUtils.loadAnimation(this,R.anim.east_rotate);
+        Animation west_rotate = AnimationUtils.loadAnimation(this,R.anim.west_rotate);
+        Animation north_rotate = AnimationUtils.loadAnimation(this,R.anim.north_rotate);
+        Animation south_rotate = AnimationUtils.loadAnimation(this,R.anim.south_rotate);
+
 
         if (count == 1){
-            eastImageView.startAnimation(fadeout_Animation);
-            westImageView.startAnimation(fadeout_Animation);
-            southImageView.startAnimation(fadeout_Animation);
-            northImageView.startAnimation(fadeout_Animation);
-
+            eastImageView.setAnimation(firstout_Animation);
+            westImageView.setAnimation(firstout_Animation);
+            southImageView.setAnimation(firstout_Animation);
+            northImageView.setAnimation(firstout_Animation);
             count ++;
         }
 
@@ -132,13 +137,13 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         recordingButton.setOnClickListener(v -> {
-            logoImageView.startAnimation(rotationAnimation);
+
             sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
             gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 
-            String serverUrl = "ws://10.30.115.220:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
+            String serverUrl = "ws://10.30.118.68:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -149,7 +154,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             listener = new WebSocketListener() {
                 @Override
                 public void onOpen(@NonNull WebSocket webSocket, @NonNull okhttp3.Response response) {
-                    runOnUiThread(() -> updateStatusText("연결되었습니다."));
+                    runOnUiThread(() -> updateStatusText("음성 인식 대기중 ...."));
                     createNotificationChannel();
                 }
 
@@ -181,13 +186,38 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
                             if (direction.equals("동쪽")) {
-                                eastImageView.startAnimation(fadein_Animation);
+                                animateWithFadeInOut(eastImageView, fadein_Animation, fadeout_Animation);
+                                logoImageView.startAnimation(east_rotate);
+
+                                if(keyword.equals("unknown")){
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                } else {
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                }
                             } else if (direction.equals("서쪽")) {
-                                westImageView.startAnimation(fadein_Animation);
+                                animateWithFadeInOut(westImageView, fadein_Animation, fadeout_Animation);
+                                logoImageView.startAnimation(west_rotate);
+                                if(keyword.equals("unknown")){
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                } else {
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                }
                             } else if (direction.equals("남쪽")) {
-                                southImageView.startAnimation(fadein_Animation);
+                                animateWithFadeInOut(southImageView, fadein_Animation, fadeout_Animation);
+                                logoImageView.startAnimation(south_rotate);
+                                if(keyword.equals("unknown")){
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                } else {
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                }
                             } else if (direction.equals("북쪽")) {
-                                northImageView.startAnimation(fadein_Animation);
+                                animateWithFadeInOut(northImageView, fadein_Animation, fadeout_Animation);
+                                logoImageView.startAnimation(north_rotate);
+                                if(keyword.equals("unknown")){
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                } else {
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                }
                             }
 
 
@@ -202,6 +232,21 @@ public class MainActivity extends Activity implements SensorEventListener {
                         }
 
                     });
+                }
+
+                private void animateWithFadeInOut(ImageView imageView, Animation fadeinAnimation, Animation fadeoutAnimation) {
+                    if (!isAnimating) {
+                        isAnimating = true;
+
+                        imageView.startAnimation(fadeinAnimation);
+
+                        // Wait for 1 second and then start fade out animation
+                        new Handler().postDelayed(() -> {
+                            imageView.startAnimation(fadeoutAnimation);
+
+                            isAnimating = false; // Reset animation flag
+                        }, 1000);
+                    }
                 }
 
 
@@ -269,7 +314,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                 @Override
                 public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-                    runOnUiThread(() -> updateStatusText("WebSocket connection closed: " + code + ", " + reason));
+                    runOnUiThread(() -> updateStatusText("음성 탐색이 중단되었습니다."));
                 }
 
                 @Override

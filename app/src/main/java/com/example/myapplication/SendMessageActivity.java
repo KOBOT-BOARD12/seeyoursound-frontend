@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -94,13 +97,13 @@ public class SendMessageActivity extends Activity  {
 
 
     private void sendRequestToServer(String message) {
-        String id = new String() ;
-        id = "20191621" ;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "http://10.30.113.200:8000/register_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "http://10.30.118.68:8000/register_keyword"; // FastAPI 서버의 URL을 입력하세요
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        String requestBodyString = "{ \"user_id\": \"" + id + "\", \"keyword\": \"" + message + "\" }";
+        String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
 
         Request request = new Request.Builder()

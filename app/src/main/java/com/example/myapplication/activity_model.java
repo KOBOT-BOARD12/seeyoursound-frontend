@@ -19,8 +19,8 @@ public class activity_model extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_model);
-        logoImageView = findViewById(R.id.logoImageView); // 이미지뷰 찾기
 
+        logoImageView = findViewById(R.id.logoImageView);
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
         logoImageView.startAnimation(rotationAnimation);
 
