@@ -84,7 +84,7 @@
             android:id="@+id/homeButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/home"
+            android:background="@drawable/push_home"
             android:fontFamily="@font/apple"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -93,7 +93,7 @@
             android:id="@+id/reservationButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/reser"
+            android:background="@drawable/push_reser"
             android:fontFamily="@font/apple"
             android:textColor="#000000"
             android:textSize="20sp" />

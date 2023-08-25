@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseUser;
-import android.app.PendingIntent;
+
 import androidx.core.app.NotificationCompat;
 import android.os.Handler;
 import android.content.Intent;
@@ -56,6 +56,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)*25;
 
     private boolean isRecording = false;
+    private boolean isColor = true;
     private AudioRecord audioRecord;
     private WebSocket webSocket;
     ImageView logoImageView;
@@ -67,6 +68,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private String prediction_class ;
     private String keyword ;
     private String direction ;
+
     private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
     // Channel을 생성 및 전달해 줄 수 있는 Manager 생성
     private NotificationManager mNotificationManager;
@@ -88,6 +90,8 @@ public class MainActivity extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
@@ -112,7 +116,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             count ++;
         }
 
-
+        logoImageView.startAnimation(rotationAnimation);
 
 
         // 자이로스코프 센서를 사용하기 위해 센서 매니저를 생성합니다.
@@ -142,8 +146,16 @@ public class MainActivity extends Activity implements SensorEventListener {
             gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
+            if(isColor ==true){
+                recordingButton.setBackgroundResource(R.drawable.during_mic);
+                isColor = false;
+            } else{
+                recordingButton.setBackgroundResource(R.drawable.mic);
+                isColor = true;
+            }
 
-            String serverUrl = "ws://10.30.118.68:8000/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
+
+            String serverUrl = "https://72d3-113-198-217-79.ngrok-free.app/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -326,14 +338,14 @@ public class MainActivity extends Activity implements SensorEventListener {
             };
 
 
-
             webSocket = client.newWebSocket(request, listener);
 
 
             if (!isRecording) {
                 startRecording();
-
                 isRecording = true; // 녹음 상태를 true로 설정
+
+
             } else {
                 // Stop 버튼은 녹음 중에만 활성화되도록 설정
                 recordingButton.setEnabled(false);
@@ -425,8 +437,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
+        //String uid = user.getUid();
+        String uid = "testtest" ;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
             return;

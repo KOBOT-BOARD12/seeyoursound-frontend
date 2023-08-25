@@ -89,7 +89,7 @@
 
 
         <TextView
-            android:fontFamily="@font/apple"
+            android:fontFamily="@font/seeyoursound"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

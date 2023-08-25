@@ -10,6 +10,7 @@
     tools:context=".SendMessageActivity">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -31,7 +32,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:text="Reservation Tap"
+            android:text="Keyword Edit"
             android:fontFamily="@font/apple"
             android:gravity="center"
             android:textSize="15sp"
@@ -60,56 +61,92 @@
         android:fontFamily="@font/apple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="인식하고 싶은 예약어를 입력해주세요 "
+        android:text="사용하고 싶은 예약어를 \n편집 해주세요 "
         android:textSize="30dp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginTop="70dp"/>
 
-    <EditText
-        android:id="@+id/messageEditText"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/apple"
-        android:gravity="center"
-        android:layout_marginTop="130dp"
+        android:layout_weight="1"
+        android:choiceMode="singleChoice" />
 
-        android:hint="EX) 위험해!, 창엽아!, 저기요! .. " />
 
-    <Button
-        android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-        android:fontFamily="@font/apple"
-        android:onClick="sendMessage"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:text="Regist your keyword"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/buttonshape"
+            android:fontFamily="@font/apple"
+            android:onClick="sendMessage"
 
 
-        android:textSize="18sp" />
+            android:text="add keyword"
+            android:textColor="#FFFFFF"
 
-    <Button
-        android:id="@+id/reservationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/buttonshape"
-        android:fontFamily="@font/apple"
-        android:layout_gravity="center"
-        android:layout_marginBottom="165dp"
-        android:text="keyword list"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+
+
+
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/modifyButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/buttonshape"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/apple"
+            android:onClick="removeMessage"
+            android:layout_gravity="center"
+            android:text="Modify keyword"
+            android:textColor="#FFFFFF"
+
+
+
+            android:textSize="18sp" />
+
+
+        <Button
+            android:id="@+id/deleteButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/buttonshape"
+            android:fontFamily="@font/apple"
+            android:onClick="removeMessage"
+            android:layout_gravity="center"
+            android:text="delete keyword"
+            android:textColor="#FFFFFF"
+
+
+
+            android:textSize="18sp" />
+
+
+
+
+    </LinearLayout>
+
+
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="0.5dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+
         android:alpha="0.1"
         android:background="#808080"/>
 
@@ -125,7 +162,7 @@
             android:id="@+id/homeButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/home"
+            android:background="@drawable/push_home"
             android:fontFamily="@font/apple"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -143,7 +180,7 @@
             android:id="@+id/noticeButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/notice_1"
+            android:background="@drawable/push_notice"
             android:fontFamily="@font/apple"
             android:textColor="#000000"
             android:textSize="20sp" />
