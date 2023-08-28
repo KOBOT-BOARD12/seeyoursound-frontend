@@ -2,89 +2,51 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.media.Image;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
 import android.widget.ImageView;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.io.InputStream;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import android.util.Base64;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 
-import android.os.Bundle;
-
-import android.util.Log;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-
-import android.util.Log;
-import java.security.MessageDigest;
-
-import com.google.android.gms.common.SignInButton;
-import android.widget.Toast;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.AuthResult;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.view.View;
-import android.widget.Button;
+
+import android.util.Log;
+
+
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.common.api.ApiException;
+
 public class activity_select extends AppCompatActivity {
 
 
+    private FirebaseAuth mAuth;
 
-
+    private static final int RC_SIGN_IN = 123;
     Button sign;
     Button log;
+    private static final String TAG = "MyTag";
     // 구글 계정
     ImageView logoImageView;
+    String default_web_client_id ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -93,7 +55,7 @@ public class activity_select extends AppCompatActivity {
         setContentView(R.layout.activity_select);
 
         logoImageView = findViewById(R.id.logoimageview); // 이미지뷰 찾기
-
+        default_web_client_id = new String("887151907918-8nmcei1bs48151h0f9uj136td6bsl0e8.apps.googleusercontent.com");
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
         logoImageView.startAnimation(rotationAnimation);
 
@@ -104,10 +66,16 @@ public class activity_select extends AppCompatActivity {
 
         sign = findViewById(R.id.signin);
         log = findViewById(R.id.signin2) ;
+        mAuth = FirebaseAuth.getInstance();
 
 
 
-
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInWithGoogle();
+            }
+        });
 
 
 
@@ -118,7 +86,7 @@ public class activity_select extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(activity_select.this, activity_login.class);
                 startActivity(intent);
-
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
 
@@ -131,6 +99,7 @@ public class activity_select extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(activity_select.this, activity_signup.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
 
 
@@ -145,5 +114,56 @@ public class activity_select extends AppCompatActivity {
 
 
     }
+
+
+    private void signInWithGoogle() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // Firebase 콘솔에서 발급한 웹 클라이언트 ID
+                .requestEmail()
+                .build();
+
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    // ... (기존 코드)
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Log.w(TAG, "Google sign in failed", e);
+            }
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // 로그인 성공 처리 (예: 다음 화면으로 이동)
+                            Intent intent = new Intent(activity_select.this, MainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        } else {
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            // 로그인 실패 처리 (예: 에러 메시지 출력)
+                        }
+                    }
+                });
+    }
+
 }
 

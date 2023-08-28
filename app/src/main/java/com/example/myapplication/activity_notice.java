@@ -3,12 +3,11 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+
 import android.widget.ImageView;
 import android.view.View;
 import android.widget.TextView;
-
+import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -20,6 +19,14 @@ public class activity_notice extends AppCompatActivity {
     Button homeButton;
     Button reservationButton;
     TextView noticeview ;
+    private ScrollView scrollview;
+    String predictionClass ;
+    String keyword;
+    String direction;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,18 +34,19 @@ public class activity_notice extends AppCompatActivity {
         backButton = findViewById(R.id.backButton) ;
         homeButton = findViewById(R.id.homeButton);
         reservationButton = findViewById(R.id.reservationButton);
-        noticeview = findViewById(R.id.noticeview);
-
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            String predictionClass = intent.getStringExtra("prediction_class");
-            String keyword = intent.getStringExtra("keyword");
-            String direction = intent.getStringExtra("direction");
+        noticeview = findViewById(R.id.noticeView);
 
 
 
-        }
+
+
+
+
+
+
+
+
+
 
         backButton.setOnClickListener(v -> {
             Intent intent2 = new Intent(activity_notice.this, MainActivity.class);
@@ -64,6 +72,17 @@ public class activity_notice extends AppCompatActivity {
 
 
     }
+
+
+
+
+    public void updateNoticeText(String direction, String predictionClass, String keyword) {
+        String noticeText = noticeview.getText().toString();
+        noticeText += "\n방향: " + direction + "\n예측 클래스: " + predictionClass + "\n키워드: " + keyword;
+        noticeview.setText(noticeText);
+    }
+
+
 
 
 

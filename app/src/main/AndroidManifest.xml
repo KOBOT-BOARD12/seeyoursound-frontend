@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
+    <uses-permission android:name = "android.permission.VIBRATE"/>
     <application
 
 
@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity_select"
             android:exported="true"
             android:label="SeeYourSound"
             android:theme="@style/Theme.MyApplication">
@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity_select"
+        <activity android:name=".MainActivity"
             android:label="login" />
         <activity android:name=".activity_model"
             android:label="main" />
@@ -47,7 +47,13 @@
             android:label="signup" />
         <activity
             android:name=".SendMessageActivity"
+            android:configChanges="orientation|screenSize"
             android:label="Send Message Activity" />
+
+        <activity
+            android:name=".activity_help"
+            android:label="help"/>
+
 
         <activity
             android:name=".activity_login"

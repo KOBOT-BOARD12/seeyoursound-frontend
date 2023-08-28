@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backButton"
+            android:layout_width="60dp"
+
+            android:layout_height="60dp"
+
+            android:layout_gravity="left"
+            android:background="@drawable/back"
+            android:fontFamily="@font/apple"
+            android:paddingStart="16dp"
+            android:textColor="#000000"
+
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:text="Help Information"
+            android:fontFamily="@font/apple"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="390dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:gravity="left">
+
+
+
+        <ImageView
+            android:id="@+id/west"
+            android:layout_width="30dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/west" />
+
+
+
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:fontFamily="@font/apple"
+
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo" />
+
+
+
+        <ImageView
+            android:id="@+id/east"
+            android:layout_width="30dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/east" />
+
+
+
+        <TextView
+            android:fontFamily="@font/apple"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/main_status"
+            android:text=" (= 마이크 버튼을 눌러 탐지가 시작되면 왼쪽의 애니메이션 주변의 곡선들이 음성이 탐지되는 방향으로 나타납니다. "
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+
+    </LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.5"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/recordingButton"
+            android:layout_width="86dp"
+            android:layout_height="79dp"
+            android:layout_gravity="center"
+            android:background="@drawable/mic"
+            android:fontFamily="@font/apple"
+            android:layout_marginLeft="60dp"
+            android:paddingStart="16dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/main_status"
+            android:text="(= 마이크 버튼을 누르면 아래에 탐지 결과가 실시간으로 표시됩니다."
+            android:layout_gravity="center"
+            android:layout_marginLeft="60dp"
+            android:gravity="center"
+
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="#808080" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/statusTextView"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="left"
+
+
+            android:fontFamily="@font/apple"
+            android:gravity="center"
+            android:background="@drawable/buttonshape"
+            android:textColor="#FFFFFF"
+            android:text="EX)서쪽에서 자동차 경적소리가 들렸습니다."
+            android:textSize="16sp"
+
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/main_status"
+            android:text="(= 탐지결과 TEXT"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="#808080" />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="#808080" />
+
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/homeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/home"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/main_status"
+
+            android:text="(= Main 탐지 TAB"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reservationButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/reser"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/main_status"
+            android:text="(= 예약어 편집 TAB"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/noticeButton"
+            android:layout_width="70dp"
+            android:layout_marginLeft="60dp"
+            android:layout_height="70dp"
+            android:background="@drawable/notice_1"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/main_status"
+            android:text="(= 알림 저장 TAB"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            >
+
+        </TextView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

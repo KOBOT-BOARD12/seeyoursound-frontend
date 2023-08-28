@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.graphics.Color;
+import android.os.Vibrator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseUser;
 
-import androidx.core.app.NotificationCompat;
+
 import android.os.Handler;
 import android.content.Intent;
 
@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     ImageView westImageView ;
     ImageView southImageView ;
     ImageView northImageView ;
-
+    private activity_notice noticeActivity;
     int count = 1;
     private boolean isAnimating = false;
 
@@ -92,12 +92,13 @@ public class MainActivity extends Activity implements SensorEventListener {
         setContentView(R.layout.activity_main);
 
 
+        Vibrator vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
         southImageView = findViewById(R.id.south);
         northImageView = findViewById(R.id.north);
-
+        noticeActivity = new activity_notice();
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
         Animation fadein_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         Animation fadeout_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_out);
@@ -133,8 +134,15 @@ public class MainActivity extends Activity implements SensorEventListener {
         Button recordingButton = findViewById(R.id.recordingButton);
         Button reservationButton = findViewById(R.id.reservationButton);
         Button noticeButton = findViewById(R.id.noticeButton);
+        Button helpButton = findViewById(R.id.helpButton) ;
 
 
+        helpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, activity_help.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        });
 
 
 
@@ -155,7 +163,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             }
 
 
-            String serverUrl = "https://72d3-113-198-217-79.ngrok-free.app/ws"; // FastAPI 서버의 WebSocket 엔드포인트 URL
+            String serverUrl = "https://be58-113-198-217-79.ngrok-free.app/ws";
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -167,7 +175,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                 @Override
                 public void onOpen(@NonNull WebSocket webSocket, @NonNull okhttp3.Response response) {
                     runOnUiThread(() -> updateStatusText("음성 인식 대기중 ...."));
-                    createNotificationChannel();
+
                 }
 
                 @Override
@@ -181,7 +189,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                             keyword = jsonObject.optString("keyword", "unknown");
                             direction = jsonObject.optString("direction","unknown");
 
-
+                            vibrator.vibrate(500);
 
                             if (prediction_class.equals("0")){
                                 prediction_class = "자동차 경적 소리";
@@ -236,8 +244,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
 
-                            //sendNotification();
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -260,63 +266,6 @@ public class MainActivity extends Activity implements SensorEventListener {
                         }, 1000);
                     }
                 }
-
-
-
-                // Notification Builder를 만드는 메소드
-
-
-                // Notification을 보내는 메소드
-                public void sendNotification(){
-
-
-                    // Notification 생성
-                    NotificationCompat.Builder notifyBuilder = new NotificationCompat.Builder(MainActivity.this, PRIMARY_CHANNEL_ID)
-                            .setContentTitle("새로운 음성이 탐색되었습니다!")
-                            .setSmallIcon(R.drawable.eyes)
-                            .setAutoCancel(true);
-
-                    if(keyword.equals("unknown")){
-                        notifyBuilder.setContentText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") ;
-                    } else {
-                        notifyBuilder.setContentText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! ") ;
-                    }
-
-                    mNotificationManager.notify(NOTIFICATION_ID, notifyBuilder.build());
-                }
-
-                //채널을 만드는 메소드
-                public void createNotificationChannel()
-                {
-                    // notification manager 생성
-                    mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-
-                        NotificationChannel notificationChannel = new NotificationChannel(PRIMARY_CHANNEL_ID,
-                                "Test Notification", NotificationManager.IMPORTANCE_HIGH);
-
-                        notificationChannel.enableLights(true);
-                        notificationChannel.setLightColor(Color.RED);
-                        notificationChannel.enableVibration(true);
-                        notificationChannel.setDescription("Notification from Mascot");
-
-                        mNotificationManager.createNotificationChannel(notificationChannel);
-                    }
-
-                }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

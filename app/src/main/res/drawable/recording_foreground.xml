@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
+    android:width="1080dp"
+    android:height="1080dp"
     android:viewportWidth="1179"
     android:viewportHeight="169.59375">
   <group android:scaleX="0.46"
