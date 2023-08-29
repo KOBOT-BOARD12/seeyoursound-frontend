@@ -4,17 +4,30 @@
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:buttonBarPositiveButtonStyle">@style/AlertDialogPositiveButton</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="AlertDialogPositiveButton" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/buttonshape</item>
         <item name= "android:fontFamily">@font/apple</item>
-        <item name= "android:gravity"> center</item>
-        <item name= "android:layout_gravity"> center</item>
+        <item name= "android:gravity">center</item>
+        <item name= "android:layout_gravity">center</item>
         <item name="android:textColor">#FFFFFF</item>
         <!-- 기타 원하는 스타일 속성들 추가 가능 -->
     </style>
+
+
+
+
+    <style name="AlertDialogCustom2" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:buttonBarPositiveButtonStyle">@style/AlertDialogPositiveButton</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">2dp</item>
+    </style>
+
 
 </resources>

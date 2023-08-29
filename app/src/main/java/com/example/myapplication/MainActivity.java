@@ -163,7 +163,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             }
 
 
-            String serverUrl = "https://be58-113-198-217-79.ngrok-free.app/ws";
+            String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/ws";
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -189,7 +189,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                             keyword = jsonObject.optString("keyword", "unknown");
                             direction = jsonObject.optString("direction","unknown");
 
-                            vibrator.vibrate(500);
+                            //vibrator.vibrate(500);
 
                             if (prediction_class.equals("0")){
                                 prediction_class = "자동차 경적 소리";

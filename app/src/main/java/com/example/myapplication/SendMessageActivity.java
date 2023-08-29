@@ -95,7 +95,7 @@ public class SendMessageActivity extends Activity  {
                     listview.clearChoices();
                     adapter.notifyDataSetChanged();
                 } else{
-                    DeleteDialog("삭제할 예약어를 선택해주세요. ");
+                    DeleteDialog(" 삭제할 예약어를 선택해주세요. ");
                 }
             }
         });
@@ -139,7 +139,7 @@ public class SendMessageActivity extends Activity  {
         //String uid = user.getUid();
         String uid= "testtest";
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://be58-113-198-217-79.ngrok-free.app/register_keyword";
+        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/register_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
@@ -186,7 +186,7 @@ public class SendMessageActivity extends Activity  {
         // String uid = user.getUid();
         String uid = "testtest";
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://be58-113-198-217-79.ngrok-free.app/delete_keyword";
+        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/delete_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + keyword + "\" }";
@@ -212,14 +212,14 @@ public class SendMessageActivity extends Activity  {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            DeleteDialog("예약어가 삭제되었습니다.");
+                            DeleteDialog(" 예약어가 삭제되었습니다. ");
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            DeleteDialog("예약어 삭제에 실패하였습니다. ");
+                            DeleteDialog(" 예약어 삭제에 실패하였습니다. ");
                         }
                     });
                     // 서버 응답이 실패한 경우에 대한 처리
@@ -238,7 +238,7 @@ public class SendMessageActivity extends Activity  {
         //String uid = user.getUid();
         String uid = "testtest";
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://be58-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
@@ -307,22 +307,23 @@ public class SendMessageActivity extends Activity  {
 
     private void showEditTextDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
-        builder.setTitle("예약어 추가");
+        builder.setTitle(" 예약어 추가 ");
         final EditText input = new EditText(this);
         builder.setView(input);
 
-        builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(" 추가 ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String englishRegex = "^[a-zA-Z]+$";
                 String newKeyword = input.getText().toString();
                 if (!newKeyword.isEmpty()) {
                     if (isKeywordDuplicate(newKeyword)) {
-                        showErrorMessage("이미 등록된 예약어입니다.");
+
+                        showErrorMessage(" 이미 등록된 예약어입니다. ");
                     } else {
                         if (items.size() < 3) { // 리스트의 크기가 3개 미만인 경우에만 추가
                             if(newKeyword.matches(englishRegex)){
-                                showErrorMessage("영문 입력은 불가능합니다.");
+                                showErrorMessage(" 영문 입력은 불가능합니다. ");
                             }else {
                                 sendRequestToServer(newKeyword);
                                 items.add(newKeyword);
@@ -331,20 +332,21 @@ public class SendMessageActivity extends Activity  {
 
 
                         } else {
-                            DeleteDialog("최대 3개의 예약어까지만 등록 가능합니다.");
+                            DeleteDialog(" 최대 3개의 예약어까지만 등록 가능합니다. ");
                         }
 
                     }
 
 
                 } else {
-                    showErrorMessage("예약어를 입력해주세요. ");
+                    dialog.cancel();
+                    showErrorMessage(" 예약어를 입력해주세요. ");
 
                 }
             }
         });
 
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(" 취소 ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
@@ -364,14 +366,14 @@ public class SendMessageActivity extends Activity  {
     }
 
     private void showErrorMessage(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
-        builder
-                .setMessage(message)
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        showEditTextDialog(); // 확인 버튼을 누르면 다시 다이얼로그 표시
-                    }
-                });
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
+
+        builder.setMessage(message);
+        builder.setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                showEditTextDialog(); // 확인 버튼을 누르면 다시 다이얼로그 표시
+            }
+        });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -392,10 +394,10 @@ public class SendMessageActivity extends Activity  {
 
 
     private void MessageDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
         builder
-                .setMessage("예약어가 추가되었습니다 !")
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                .setMessage(" 예약어가 추가되었습니다 ! ")
+                .setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -407,10 +409,10 @@ public class SendMessageActivity extends Activity  {
     }
 
     private void DeleteDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
         builder
                 .setMessage(message)
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                .setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

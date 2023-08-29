@@ -31,7 +31,7 @@
 
 
         <TextView
-            android:text="Notice Tap"
+            android:text="클래스 필터링"
             android:fontFamily="@font/apple"
             android:gravity="center"
             android:textSize="15sp"
@@ -54,43 +54,124 @@
         android:alpha="0.1"
         android:background="#808080"/>
 
+    <TextView
+        android:fontFamily="@font/apple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="듣고 싶은 소리를 \n체크해 주세요 "
+        android:textSize="30dp"
+        android:textStyle="bold"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"/>
+
 
 
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:gravity="center_vertical"
         android:padding="20dp">
 
-        <!--프로필 사진-->
+
         <ImageView
-            android:id="@+id/profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/eyes"/>
+            android:id="@+id/car"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/car"/>
 
-        <!--이름-->
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="time"
-            android:textSize="16sp"
-            android:textColor="#000"/>
 
-        <!--상태 메시지-->
-        <TextView
-            android:id="@+id/noticeView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:text="notice"
-            android:textSize="12sp"
-            android:textColor="#444"
-            android:maxLines="1"/>
 
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:textSize="18sp"
+
+            android:text="자동차 경적소리"
+            android:id="@+id/car_check"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/dog"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/car"/>
+
+
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:textSize="18sp"
+
+            android:text="개 짖는 소리"
+            android:id="@+id/dog_check"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/siren"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/siren"/>
+
+
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:textSize="18sp"
+
+            android:text="사이렌 소리"
+            android:id="@+id/siren_check"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/scream"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/car"/>
+
+
+
+        <CheckBox
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:textSize="18sp"
+
+            android:text="비명 소리"
+            android:id="@+id/scream_check"/>
 
 
     </LinearLayout>
@@ -127,7 +208,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/push_home"
-            android:fontFamily="@font/apple"
+
             android:textColor="#000000"
             android:textSize="20sp" />
 
@@ -136,7 +217,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/push_reser"
-            android:fontFamily="@font/apple"
+
             android:textColor="#000000"
             android:textSize="20sp" />
 
@@ -144,8 +225,8 @@
             android:id="@+id/noticeButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/notice_1"
-            android:fontFamily="@font/apple"
+            android:background="@drawable/notice"
+
             android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>

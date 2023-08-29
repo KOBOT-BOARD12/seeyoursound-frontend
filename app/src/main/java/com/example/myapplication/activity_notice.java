@@ -34,7 +34,7 @@ public class activity_notice extends AppCompatActivity {
         backButton = findViewById(R.id.backButton) ;
         homeButton = findViewById(R.id.homeButton);
         reservationButton = findViewById(R.id.reservationButton);
-        noticeview = findViewById(R.id.noticeView);
+
 
 
 
@@ -76,11 +76,7 @@ public class activity_notice extends AppCompatActivity {
 
 
 
-    public void updateNoticeText(String direction, String predictionClass, String keyword) {
-        String noticeText = noticeview.getText().toString();
-        noticeText += "\n방향: " + direction + "\n예측 클래스: " + predictionClass + "\n키워드: " + keyword;
-        noticeview.setText(noticeText);
-    }
+
 
 
 

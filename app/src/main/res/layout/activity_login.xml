@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
-            android:text="계정을 잊어버리셨나요 ?"
+            android:text="계정을 잊어버리셨나요 ? 축하드립니다."
             android:textColor="@color/black"
             android:textSize="15dp"
             android:textStyle="bold" />
@@ -89,7 +89,7 @@
 
 
         <TextView
-            android:fontFamily="@font/seeyoursound"
+            android:fontFamily="@font/apple"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

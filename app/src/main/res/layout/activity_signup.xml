@@ -26,13 +26,14 @@
                 android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="2"
                 android:text="회원 가입"
                 android:textStyle="bold"
                 android:fontFamily="@font/apple"
                 android:gravity="center"
-                android:textSize="25dp" />
+                android:textSize="30dp" />
         </LinearLayout>
 
         <ScrollView
@@ -68,7 +69,7 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/apple"
                     android:ems="20"
-                    android:hint="EX) SYS@SYS.COM"
+                    android:hint="ex) sys@sys.com"
                     android:textSize="15dp"
                     android:inputType="textPersonName"
                     android:text="" />
@@ -146,10 +147,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-                    android:layout_marginLeft="10dp"
+
                     android:fontFamily="@font/apple"
                     android:text="회원가입 완료"
-
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="20sp"
