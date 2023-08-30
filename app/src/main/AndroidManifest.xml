@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".activity_select"
+            android:name=".activity_notice"
             android:exported="true"
             android:label="SeeYourSound"
             android:theme="@style/Theme.MyApplication">
@@ -54,12 +54,11 @@
             android:name=".activity_help"
             android:label="help"/>
 
-
         <activity
             android:name=".activity_login"
             android:label="model activity"/>
         <activity
-            android:name=".activity_notice"
+            android:name=".activity_select"
             android:label="notice"/>
     </application>
 

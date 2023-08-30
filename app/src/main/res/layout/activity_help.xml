@@ -60,7 +60,7 @@
 
 
     <LinearLayout
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:gravity="left">
@@ -138,14 +138,14 @@
         android:background="#808080" />
 
     <LinearLayout
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/recordingButton"
-            android:layout_width="86dp"
-            android:layout_height="79dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:background="@drawable/mic"
             android:fontFamily="@font/apple"
@@ -191,9 +191,9 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
@@ -201,16 +201,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/statusTextView"
-            android:layout_width="250dp"
+            android:layout_width="180dp"
             android:layout_height="80dp"
-            android:layout_gravity="left"
 
+            android:layout_marginLeft="10dp"
 
             android:fontFamily="@font/apple"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:background="@drawable/buttonshape"
             android:textColor="#FFFFFF"
-            android:text="ex) 서쪽에서 자동차 경적소리가              들렸습니다."
+            android:text="ex) 서쪽에서 자동차 \n경적소리가 들렸습니다."
             android:textSize="16sp"
 
             android:textStyle="bold" />
@@ -218,7 +218,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="40dp"
             android:background="@drawable/main_status"
             android:text=" 탐지 결과"
             android:layout_gravity="center"

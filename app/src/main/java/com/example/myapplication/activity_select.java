@@ -2,12 +2,16 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.widget.ImageView;
 
@@ -34,6 +38,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.api.ApiException;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class activity_select extends AppCompatActivity {
 
@@ -139,6 +153,8 @@ public class activity_select extends AppCompatActivity {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
+
+
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
             }
@@ -153,17 +169,25 @@ public class activity_select extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+
+
+
+
+
                             // 로그인 성공 처리 (예: 다음 화면으로 이동)
                             Intent intent = new Intent(activity_select.this, MainActivity.class);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            // 로그인 실패 처리 (예: 에러 메시지 출력)
                         }
-                    }
-                });
-    }
+
+
+                        };
+                    });
+                };
+
+
+
+
 
 }
 

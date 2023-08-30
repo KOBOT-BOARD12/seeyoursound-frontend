@@ -136,8 +136,8 @@ public class SendMessageActivity extends Activity  {
 
     private void sendRequestToServer(String message) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //String uid = user.getUid();
-        String uid= "testtest";
+        String uid = user.getUid();
+
         OkHttpClient client = new OkHttpClient();
         String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/register_keyword";
 
@@ -384,10 +384,7 @@ public class SendMessageActivity extends Activity  {
 
 
 
-    private void updateStatusText(String message) {
-        TextView statusTextView = findViewById(R.id.statusTextView);
-        statusTextView.setText(message);
-    }
+
 
 
 

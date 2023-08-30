@@ -386,8 +386,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //String uid = user.getUid();
-        String uid = "testtest" ;
+        String uid = user.getUid();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
             return;
