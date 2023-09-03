@@ -29,7 +29,7 @@
 
 
         <activity
-            android:name=".activity_notice"
+            android:name=".activity_first"
             android:exported="true"
             android:label="SeeYourSound"
             android:theme="@style/Theme.MyApplication">
@@ -39,14 +39,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity_main"
             android:label="login" />
-        <activity android:name=".activity_model"
-            android:label="main" />
+
         <activity android:name=".activity_signup"
             android:label="signup" />
         <activity
-            android:name=".SendMessageActivity"
+            android:name=".activity_keyword"
             android:configChanges="orientation|screenSize"
             android:label="Send Message Activity" />
 
@@ -58,7 +57,7 @@
             android:name=".activity_login"
             android:label="model activity"/>
         <activity
-            android:name=".activity_select"
+            android:name=".activity_filter"
             android:label="notice"/>
     </application>
 

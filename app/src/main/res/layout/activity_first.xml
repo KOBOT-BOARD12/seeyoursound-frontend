@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-
-    tools:context=".activity_select">
+    tools:context=".activity_first">
 
 
 
@@ -45,12 +43,6 @@
             android:layout_marginBottom="5dp"
             />
 
-
-
-
-
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:fontFamily="@font/apple"
             android:id="@+id/signin"
@@ -66,8 +58,6 @@
             android:textColor="@color/white"
             android:textSize="15dp"
              />
-
-
 
 
         <LinearLayout
@@ -95,16 +85,12 @@
                 android:layout_height="16dp"
                 android:background="@drawable/buttonshape2"
                 android:text="로그인"
-                android:alpha="0.5"
+
                 android:textColor="@color/black"
                 android:textAlignment="center"
                 android:gravity="center_horizontal"
                 android:textStyle="bold" />
         </LinearLayout>
-
-            />
-
-
 
 
     </LinearLayout>

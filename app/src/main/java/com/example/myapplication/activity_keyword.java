@@ -12,7 +12,6 @@ import android.view.View;
 
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,46 +31,31 @@ import okhttp3.Response;
 import java.io.IOException;
 
 
-public class SendMessageActivity extends Activity  {
+public class activity_keyword extends Activity  {
 
     private ListView listview;
     private ArrayList<String> items;
     private ArrayAdapter adapter;
+    private String uid;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_message);
+        setContentView(R.layout.activity_keyword);
         readkeywordToServer();
-        listview = (ListView) findViewById(R.id.listView) ;
+        listview = findViewById(R.id.listView) ;
         items = new ArrayList<String>() ;
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
 
-
-
-
-
-
         Button addButton = findViewById(R.id.addButton);
-
-        Button deleteButton = (Button)findViewById(R.id.deleteButton) ;
-
-
+        Button deleteButton = findViewById(R.id.deleteButton) ;
         Button backButton = findViewById(R.id.backButton) ;
         Button homeButton = findViewById(R.id.homeButton) ;
         Button noticeButton = findViewById(R.id.noticeButton);
 
 
-        // 빈 데이터 리스트 생성.
-
-
         listview.setAdapter(adapter) ;
-
-
-
-
-
 
 
         addButton.setOnClickListener(new Button.OnClickListener() {
@@ -102,23 +86,21 @@ public class SendMessageActivity extends Activity  {
 
 
 
-
-
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+            Intent intent = new Intent(activity_keyword.this, activity_main.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         homeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SendMessageActivity.this, MainActivity.class);
+            Intent intent = new Intent(activity_keyword.this, activity_main.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         });
 
         noticeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SendMessageActivity.this, activity_notice.class);
+            Intent intent = new Intent(activity_keyword.this, activity_filter.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
@@ -136,10 +118,10 @@ public class SendMessageActivity extends Activity  {
 
     private void sendRequestToServer(String message) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
+        uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/register_keyword";
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/register_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
@@ -165,7 +147,7 @@ public class SendMessageActivity extends Activity  {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            MessageDialog();
+                            AddConfirmDialog();
                         }
                     });
                 } else {
@@ -173,7 +155,7 @@ public class SendMessageActivity extends Activity  {
                         @Override
                         public void run(){}
                     });
-                    // 서버 응답이 실패한 경우에 대한 처리
+
                 }
             }
         });
@@ -183,10 +165,10 @@ public class SendMessageActivity extends Activity  {
 
     private void sendDeleteRequestToServer(String keyword) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // String uid = user.getUid();
-        String uid = "testtest";
+        uid = user.getUid();
+
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/delete_keyword";
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/delete_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + keyword + "\" }";
@@ -208,7 +190,7 @@ public class SendMessageActivity extends Activity  {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    final String responseData = response.body().string();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -222,7 +204,7 @@ public class SendMessageActivity extends Activity  {
                             DeleteDialog(" 예약어 삭제에 실패하였습니다. ");
                         }
                     });
-                    // 서버 응답이 실패한 경우에 대한 처리
+
                 }
             }
         });
@@ -232,13 +214,11 @@ public class SendMessageActivity extends Activity  {
 
     private void readkeywordToServer() {
 
-
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //String uid = user.getUid();
-        String uid = "testtest";
+        uid = user.getUid();
+
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
@@ -356,6 +336,9 @@ public class SendMessageActivity extends Activity  {
         builder.show();
     }
 
+
+
+
     private boolean isKeywordDuplicate(String keyword) {
         for (String existingKeyword : items) {
             if (existingKeyword.equalsIgnoreCase(keyword)) {
@@ -380,17 +363,7 @@ public class SendMessageActivity extends Activity  {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    private void MessageDialog() {
+    private void AddConfirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
         builder
                 .setMessage(" 예약어가 추가되었습니다 ! ")
@@ -418,12 +391,6 @@ public class SendMessageActivity extends Activity  {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-
-
-
-
-
 
 
 

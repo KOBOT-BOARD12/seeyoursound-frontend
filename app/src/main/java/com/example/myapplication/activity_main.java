@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.os.Vibrator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,73 +31,70 @@ import androidx.core.content.ContextCompat;
 
 import android.hardware.SensorManager;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 
-
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
 
-public class MainActivity extends Activity implements SensorEventListener {
+
+public class activity_main extends Activity implements SensorEventListener {
 
     private SensorManager sensorManager;
     private Sensor gyroscopeSensor;
-
     private Sensor sensor;
     private float[] gyroscopeValues = new float[3];
     private static final int SAMPLE_RATE = 16000;
     private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
     private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
     private static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT)*25;
-
     private boolean isRecording = false;
-    private boolean isColor = true;
     private AudioRecord audioRecord;
     private WebSocket webSocket;
     ImageView logoImageView;
 
     private OkHttpClient client;
+    TextView statusTextView;
     private Request request;
     private WebSocketListener listener;
     private float[] magneticFieldValues = new float[3];
     private String prediction_class ;
     private String keyword ;
     private String direction ;
-
-    private static final String PRIMARY_CHANNEL_ID = "primary_notification_channel";
-    // Channel을 생성 및 전달해 줄 수 있는 Manager 생성
-    private NotificationManager mNotificationManager;
-
-    // Notification에 대한 ID 생성
-    private static final int NOTIFICATION_ID = 0;
-
     ImageView eastImageView ;
     ImageView westImageView ;
     ImageView southImageView ;
     ImageView northImageView ;
-    private activity_notice noticeActivity;
+    boolean sound0;
+    boolean sound1;
+    boolean sound2;
+    boolean sound3;
     int count = 1;
     private boolean isAnimating = false;
+    Button recordingButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-
-        Vibrator vibrator = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
         southImageView = findViewById(R.id.south);
         northImageView = findViewById(R.id.north);
-        noticeActivity = new activity_notice();
+        statusTextView = findViewById(R.id.statusTextView);
+
         Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.anim);
         Animation fadein_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_in);
         Animation fadeout_Animation = AnimationUtils.loadAnimation(this,R.anim.fade_out);
@@ -107,6 +103,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         Animation west_rotate = AnimationUtils.loadAnimation(this,R.anim.west_rotate);
         Animation north_rotate = AnimationUtils.loadAnimation(this,R.anim.north_rotate);
         Animation south_rotate = AnimationUtils.loadAnimation(this,R.anim.south_rotate);
+
 
 
         if (count == 1){
@@ -120,9 +117,9 @@ public class MainActivity extends Activity implements SensorEventListener {
         logoImageView.startAnimation(rotationAnimation);
 
 
-        // 자이로스코프 센서를 사용하기 위해 센서 매니저를 생성합니다.
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        // 자이로스코프 센서를 가져옵니다.
+
         gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
@@ -131,21 +128,20 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
 
-        Button recordingButton = findViewById(R.id.recordingButton);
+        recordingButton = findViewById(R.id.recordingButton);
         Button reservationButton = findViewById(R.id.reservationButton);
         Button noticeButton = findViewById(R.id.noticeButton);
         Button helpButton = findViewById(R.id.helpButton) ;
 
 
+
+
         helpButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, activity_help.class);
+            Intent intent = new Intent(activity_main.this, activity_help.class);
             startActivity(intent);
             finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
-
-
-
 
 
         recordingButton.setOnClickListener(v -> {
@@ -154,16 +150,8 @@ public class MainActivity extends Activity implements SensorEventListener {
             gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
-            if(isColor ==true){
-                recordingButton.setBackgroundResource(R.drawable.during_mic);
-                isColor = false;
-            } else{
-                recordingButton.setBackgroundResource(R.drawable.mic);
-                isColor = true;
-            }
 
-
-            String serverUrl = "https://38cf-113-198-217-79.ngrok-free.app/ws";
+            String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/ws";
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -189,7 +177,6 @@ public class MainActivity extends Activity implements SensorEventListener {
                             keyword = jsonObject.optString("keyword", "unknown");
                             direction = jsonObject.optString("direction","unknown");
 
-                            //vibrator.vibrate(500);
 
                             if (prediction_class.equals("0")){
                                 prediction_class = "자동차 경적 소리";
@@ -209,40 +196,50 @@ public class MainActivity extends Activity implements SensorEventListener {
                                 animateWithFadeInOut(eastImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(east_rotate);
 
+
                                 if(keyword.equals("unknown")){
-                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                    runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! "));
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 }
                             } else if (direction.equals("서쪽")) {
                                 animateWithFadeInOut(westImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(west_rotate);
+                                textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
+
                                 if(keyword.equals("unknown")){
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 }
+
                             } else if (direction.equals("남쪽")) {
                                 animateWithFadeInOut(southImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(south_rotate);
+                                textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 if(keyword.equals("unknown")){
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 }
                             } else if (direction.equals("북쪽")) {
                                 animateWithFadeInOut(northImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(north_rotate);
+                                textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 if(keyword.equals("unknown")){
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 " + prediction_class + "가 탐지 되었습니다 ! ") );
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + " 에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
+                                    textFadeInOut(statusTextView,fadein_Animation,fadeout_Animation);
                                 }
                             }
-
-
-
-
 
 
                         } catch (JSONException e) {
@@ -258,7 +255,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                         imageView.startAnimation(fadeinAnimation);
 
-                        // Wait for 1 second and then start fade out animation
+
                         new Handler().postDelayed(() -> {
                             imageView.startAnimation(fadeoutAnimation);
 
@@ -267,20 +264,34 @@ public class MainActivity extends Activity implements SensorEventListener {
                     }
                 }
 
+                private void textFadeInOut(TextView textView, Animation fadeinAnimation, Animation fadeoutAnimation) {
+                    if (!isAnimating) {
+                        isAnimating = true;
+
+                        textView.startAnimation(fadeinAnimation);
 
 
+                        new Handler().postDelayed(() -> {
+                            textView.startAnimation(fadeoutAnimation);
 
-
+                            isAnimating = false; // Reset animation flag
+                        }, 1000);
+                    }
+                }
 
 
                 @Override
                 public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+                    statusTextView.startAnimation(fadein_Animation);
                     runOnUiThread(() -> updateStatusText("음성 탐색이 중단되었습니다."));
+                    statusTextView.startAnimation(fadeout_Animation);
                 }
 
                 @Override
                 public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, okhttp3.Response response) {
-                    runOnUiThread(() -> updateStatusText("연결 중입니다..."));
+                    statusTextView.startAnimation(fadein_Animation);
+                    runOnUiThread(() -> updateStatusText("탐지 중입니다..."));
+                    statusTextView.startAnimation(fadeout_Animation);
                 }
 
 
@@ -289,22 +300,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             webSocket = client.newWebSocket(request, listener);
 
-
             if (!isRecording) {
                 startRecording();
                 isRecording = true; // 녹음 상태를 true로 설정
-
+                recordingButton.setBackgroundResource(R.drawable.during_mic); // 추가된 부분
 
             } else {
                 // Stop 버튼은 녹음 중에만 활성화되도록 설정
                 recordingButton.setEnabled(false);
                 stopRecording();
                 rotationAnimation.cancel();
-                float currentRotation = logoImageView.getRotation(); // 현재 회전 각도 가져오기
-                logoImageView.setRotation(currentRotation); // 정지된 각도로 설정
-                logoImageView.clearAnimation(); // 새로운 애니메이션을 설정하지 않도록 애니메이션을 지움
-                isRecording = false; // 녹음 상태를 false로 설정
+                float currentRotation = logoImageView.getRotation();
+                logoImageView.setRotation(currentRotation);
+                logoImageView.clearAnimation();
 
+                recordingButton.setBackgroundResource(R.drawable.mic); // 추가된 부분
 
             }
 
@@ -313,7 +323,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         noticeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, activity_notice.class);
+            Intent intent = new Intent(activity_main.this, activity_filter.class);
             startActivity(intent);
             finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -326,7 +336,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
         reservationButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SendMessageActivity.class);
+            Intent intent = new Intent(activity_main.this, activity_keyword.class);
             startActivity(intent);
             finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -340,7 +350,6 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
-
 
         // 액티비티가 재개될 때 센서 리스너를 등록합니다.
         sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -373,7 +382,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // 센서의 정확도가 변경되었을 때 호출됩니다.
-        // 이 예제에서는 사용하지 않으므로 구현할 필요가 없습니다.
+
     }
 
 
@@ -384,7 +393,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private void startRecording() {
 
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
@@ -393,7 +401,62 @@ public class MainActivity extends Activity implements SensorEventListener {
             return;
         }
 
+        OkHttpClient client = new OkHttpClient();
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/return_class"; // FastAPI 서버의 URL을 입력하세요
+        MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
+        String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
+        RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
 
+        Request request = new Request.Builder()
+                .url(serverUrl)
+                .post(requestBody)
+                .addHeader("accept", "application/json")
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {}
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run(){}
+                    });
+                } else {
+                    try {
+                        String responseData = response.body().string();
+                        JSONObject jsonObject = new JSONObject(responseData);
+
+
+                        sound0 = jsonObject.optBoolean("0");
+                        sound1 = jsonObject.optBoolean("1");
+                        sound2 = jsonObject.optBoolean("2");
+                        sound3 = jsonObject.optBoolean("3");
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        });
+                    }
+                }
+            }
+        });
 
         audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, BUFFER_SIZE);
 
@@ -406,7 +469,6 @@ public class MainActivity extends Activity implements SensorEventListener {
             while (isRecording) {
                 int bytesRead = audioRecord.read(buffer, 0, buffer.length);
                 if (bytesRead > 0) {
-
 
                     byte[] leftChannelData = new byte[bytesRead / 2];
                     byte[] rightChannelData = new byte[bytesRead / 2];
@@ -445,8 +507,12 @@ public class MainActivity extends Activity implements SensorEventListener {
                         jsonObject.put("ma_x", x1);
                         jsonObject.put("ma_y", y2);
                         jsonObject.put("ma_z", z3);
+                        jsonObject.put("class_0",sound0);
+                        jsonObject.put("class_1",sound1);
+                        jsonObject.put("class_2",sound2);
+                        jsonObject.put("class_3",sound3);
 
-                        // JSON 객체를 문자열로 변환하고 웹소켓을 통해 서버로 전송합니다.
+                        // JSON 객체를 문자열로 변환하고 웹소켓을 통해 서버로 전송
                         webSocket.send(jsonObject.toString());
 
 
@@ -465,20 +531,24 @@ public class MainActivity extends Activity implements SensorEventListener {
     }
 
     private void stopRecording() {
-
+        //녹음을 중지하고 웹소켓 연결을 종료하는 동안, UI 스레드가 블록되어 버튼을 다시 활성화하지 못할 수 있어서 new Thread 추가
         isRecording = false;
-
         if (webSocket != null) {
-            webSocket.close(1000, "Recording stopped"); // 웹소켓 연결 끊기
+            webSocket.close(1000, "Recording stopped");
         }
 
+        // 녹음 중지 및 관련 작업 수행
+        runOnUiThread(() -> {
+            recordingButton.setEnabled(true); // 버튼 다시 활성화
+        });
     }
 
 
 
 
+
+
     private void updateStatusText(String message) {
-        TextView statusTextView = findViewById(R.id.statusTextView);
         statusTextView.setText(message);
     }
 }

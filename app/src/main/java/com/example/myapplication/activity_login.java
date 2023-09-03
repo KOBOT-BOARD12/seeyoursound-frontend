@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
+
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +18,7 @@ public class activity_login extends AppCompatActivity {
     EditText emailEditText, passwordEditText;
     Button loginButton;
     FirebaseAuth auth;
+    Button signtext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,8 @@ public class activity_login extends AppCompatActivity {
         emailEditText = findViewById(R.id.editID);
         passwordEditText = findViewById(R.id.ediPassword);
         loginButton = findViewById(R.id.loginbutton);
+        signtext = findViewById(R.id.signtext);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +52,7 @@ public class activity_login extends AppCompatActivity {
 
 
                                 // 로그인 성공 후의 동작 구현
-                                Intent intent = new Intent(activity_login.this, MainActivity.class);
+                                Intent intent = new Intent(activity_login.this, activity_main.class);
                                 startActivity(intent);
                                 finish(); // 로그인 화면을 종료
                             } else {
@@ -59,22 +61,32 @@ public class activity_login extends AppCompatActivity {
                         });
             }
 
+
+
             private void showErrorMessage(String message) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity_login.this, R.style.AlertDialogCustom);
                 builder.setMessage(message)
-                        .setTitle("알림")
+
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                dialog.cancel();
                             }
                         });
                 AlertDialog dialog = builder.create();
-
-
-
                 dialog.show();
             }
+
+        });
+
+        signtext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_login.this, activity_signup.class);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+
 
         });
 

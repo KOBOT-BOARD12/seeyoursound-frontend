@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 public class activity_signup extends AppCompatActivity {
@@ -23,13 +21,11 @@ public class activity_signup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
         auth = FirebaseAuth.getInstance();
-
-
-
         id = findViewById(R.id.signID);
         pw = findViewById(R.id.signPW);
         pw2 = findViewById(R.id.signPW2);
@@ -55,7 +51,6 @@ public class activity_signup extends AppCompatActivity {
 
                 // 이메일 주소의 형식 검사
                 if (!isValidEmail(emailStr)) {
-
                     showErrorMessage("유효하지 않은 이메일 형식입니다.");
                     return;
                 }
@@ -74,7 +69,7 @@ public class activity_signup extends AppCompatActivity {
                                 FirebaseUser user = auth.getCurrentUser();
                                 Toast.makeText(activity_signup.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
                                 // 회원가입 성공 후의 동작 구현
-                                Intent intent = new Intent(activity_signup.this, MainActivity.class);
+                                Intent intent = new Intent(activity_signup.this, activity_main.class);
 
                                 startActivity(intent);
                                 finish();
@@ -105,7 +100,7 @@ public class activity_signup extends AppCompatActivity {
                         .setMessage(message)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // 확인 버튼을 눌렀을 때의 동작
+                                dialog.cancel();
                             }
                         });
 

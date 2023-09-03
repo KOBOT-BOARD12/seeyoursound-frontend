@@ -7,17 +7,10 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -25,27 +18,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 
-public class activity_notice extends AppCompatActivity {
+public class activity_filter extends AppCompatActivity {
 
-    Button start_Button;
-    ImageView logoImageView;
+
     Button backButton;
     Button homeButton;
     Button reservationButton;
     Button saveButton;
-    TextView noticeview ;
-    private ScrollView scrollview;
-    String predictionClass ;
-    String keyword;
-    String direction;
-
     CheckBox car_check;
     CheckBox dog_check;
     CheckBox siren_check;
@@ -54,13 +38,12 @@ public class activity_notice extends AppCompatActivity {
     boolean sound1;
     boolean sound2;
     boolean sound3;
-
-
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
+        setContentView(R.layout.activity_filter);
         backButton = findViewById(R.id.backButton) ;
         homeButton = findViewById(R.id.homeButton);
         reservationButton = findViewById(R.id.reservationButton);
@@ -75,32 +58,21 @@ public class activity_notice extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         backButton.setOnClickListener(v -> {
-            Intent intent2 = new Intent(activity_notice.this, MainActivity.class);
-            startActivity(intent2);
+            Intent intent = new Intent(activity_filter.this, activity_main.class);
+            startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         homeButton.setOnClickListener(v -> {
-            Intent intent2 = new Intent(activity_notice.this, MainActivity.class);
-            startActivity(intent2);
+            Intent intent = new Intent(activity_filter.this, activity_main.class);
+            startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         reservationButton.setOnClickListener(v -> {
-            Intent intent2 = new Intent(activity_notice.this, SendMessageActivity.class);
-            startActivity(intent2);
+            Intent intent = new Intent(activity_filter.this, activity_keyword.class);
+            startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
@@ -117,10 +89,9 @@ public class activity_notice extends AppCompatActivity {
 
     private void sendCheckToServer() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        String uid = user.getUid();
+        uid = user.getUid();
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://b5e1-113-198-217-79.ngrok-free.app/update_class";
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/update_class";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 
@@ -174,7 +145,7 @@ public class activity_notice extends AppCompatActivity {
                         @Override
                         public void run(){}
                     });
-                    // 서버 응답이 실패한 경우에 대한 처리
+
                 }
             }
         });
@@ -197,14 +168,11 @@ public class activity_notice extends AppCompatActivity {
 
 
     private void readCheckToServer() {
-
-
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://b5e1-113-198-217-79.ngrok-free.app/return_class"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/return_class"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
@@ -245,9 +213,6 @@ public class activity_notice extends AppCompatActivity {
                         sound2 = jsonObject.optBoolean("2");
                         sound3 = jsonObject.optBoolean("3");
 
-
-
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -259,14 +224,6 @@ public class activity_notice extends AppCompatActivity {
 
                             }
                         });
-
-
-
-
-
-
-
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -2,19 +2,12 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.widget.ImageView;
-
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,37 +20,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.AuthResult;
-import android.os.Bundle;
-
 import android.util.Log;
-
-
 import android.widget.TextView;
-
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.common.api.ApiException;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-public class activity_select extends AppCompatActivity {
+public class activity_first extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-
-    private static final int RC_SIGN_IN = 123;
+    int RC_SIGN_IN = 123;
     Button sign;
     Button log;
-    private static final String TAG = "MyTag";
+    String TAG = "MyTag";
     // 구글 계정
     ImageView logoImageView;
     String default_web_client_id ;
@@ -65,8 +40,7 @@ public class activity_select extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_select);
+        setContentView(R.layout.activity_first);
 
         logoImageView = findViewById(R.id.logoimageview); // 이미지뷰 찾기
         default_web_client_id = new String("887151907918-8nmcei1bs48151h0f9uj136td6bsl0e8.apps.googleusercontent.com");
@@ -98,7 +72,7 @@ public class activity_select extends AppCompatActivity {
             // 로그인 버튼을 클릭했을 때 실행할 코드를 여기에 작성하세요
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_select.this, activity_login.class);
+                Intent intent = new Intent(activity_first.this, activity_login.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
@@ -111,7 +85,7 @@ public class activity_select extends AppCompatActivity {
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity_select.this, activity_signup.class);
+                Intent intent = new Intent(activity_first.this, activity_signup.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
@@ -169,13 +143,8 @@ public class activity_select extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-
-
-
-
-
                             // 로그인 성공 처리 (예: 다음 화면으로 이동)
-                            Intent intent = new Intent(activity_select.this, MainActivity.class);
+                            Intent intent = new Intent(activity_first.this, activity_main.class);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         }
@@ -184,8 +153,6 @@ public class activity_select extends AppCompatActivity {
                         };
                     });
                 };
-
-
 
 
 

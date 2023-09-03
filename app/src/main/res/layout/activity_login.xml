@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-
     tools:context=".activity_login">
 
 
@@ -15,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fontFamily="@font/apple"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="160dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
@@ -28,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="70dp"
             android:text="회원 로그인"
-
             android:textStyle="bold"
             android:textSize="25dp"
             android:textAlignment="center"
@@ -41,7 +38,6 @@
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:layout_gravity="center"
-
             android:ems="20"
             android:hint="아이디"
             android:inputType="textPersonName"
@@ -53,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center"
-
             android:ems="20"
             android:hint="비밀번호"
             android:inputType="textPassword" />
@@ -65,7 +60,6 @@
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-
             android:text="로그인"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -73,23 +67,40 @@
             android:background="@drawable/buttonshape"
             android:onClick="onLoginButtonClick"/>
 
-        <TextView
-            android:fontFamily="@font/apple"
-
-            android:id="@+id/signin"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:text="계정을 잊어버리셨나요 ? 축하드립니다."
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
+
+            <TextView
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/apple"
+                android:text=" 계정이 없으신가요 ?"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:fontFamily="@font/apple"
+                android:id="@+id/signtext"
+                android:layout_width="50dp"
+                android:layout_height="16dp"
+                android:background="@drawable/buttonshape2"
+                android:text="회원가입"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
         <TextView
-            android:fontFamily="@font/apple"
+            android:fontFamily="@font/gmarket_sans_ttf_bold"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,9 +108,8 @@
             android:textAlignment="center"
             android:gravity="center_horizontal"
             android:text="SeeYourSound"
-
             android:textSize="20dp"
-            android:textStyle="bold" />
+             />
 
     </LinearLayout>
 </FrameLayout>

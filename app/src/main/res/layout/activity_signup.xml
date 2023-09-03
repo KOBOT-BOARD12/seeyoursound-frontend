@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-
     tools:context=".activity_signup">
 
 
@@ -19,8 +18,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
-
-
 
             <TextView
                 android:id="@+id/signup"
@@ -49,9 +46,6 @@
                 android:orientation="vertical" >
 
 
-
-
-
                 <TextView
                     android:id="@+id/signIDtext"
                     android:layout_width="match_parent"
@@ -73,10 +67,6 @@
                     android:textSize="15dp"
                     android:inputType="textPersonName"
                     android:text="" />
-
-
-
-
 
                 <TextView
                     android:id="@+id/signPWtext"
@@ -142,12 +132,10 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
-
                     android:id="@+id/signupbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-
                     android:fontFamily="@font/apple"
                     android:text="회원가입 완료"
                     android:layout_gravity="center"
@@ -156,15 +144,10 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:background="@drawable/buttonshape"
-
                     android:onClick="onSignupButtonClick" />
 
 
-
-
             </LinearLayout>
-
-
         </ScrollView>
 
 
