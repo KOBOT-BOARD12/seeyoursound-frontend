@@ -1,18 +1,22 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
 public class activity_signup extends AppCompatActivity {
 
     EditText id, pw, pw2;
@@ -62,7 +66,6 @@ public class activity_signup extends AppCompatActivity {
                 }
 
 
-
                 auth.createUserWithEmailAndPassword(emailStr, password)
                         .addOnCompleteListener(activity_signup.this, task -> {
                             if (task.isSuccessful()) {
@@ -108,9 +111,6 @@ public class activity_signup extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-
-
-
 
 
     }

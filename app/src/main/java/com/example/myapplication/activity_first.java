@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,9 +22,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.AuthResult;
+
 import android.util.Log;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.common.api.ApiException;
 
 public class activity_first extends AppCompatActivity {
@@ -35,7 +40,8 @@ public class activity_first extends AppCompatActivity {
     String TAG = "MyTag";
     // 구글 계정
     ImageView logoImageView;
-    String default_web_client_id ;
+    String default_web_client_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,9 +59,8 @@ public class activity_first extends AppCompatActivity {
 
 
         sign = findViewById(R.id.signin);
-        log = findViewById(R.id.signin2) ;
+        log = findViewById(R.id.signin2);
         mAuth = FirebaseAuth.getInstance();
-
 
 
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +69,6 @@ public class activity_first extends AppCompatActivity {
                 signInWithGoogle();
             }
         });
-
 
 
         log.setOnClickListener(new View.OnClickListener() {
@@ -92,13 +96,6 @@ public class activity_first extends AppCompatActivity {
 
 
         });
-
-
-
-
-
-
-
 
 
     }
@@ -150,10 +147,13 @@ public class activity_first extends AppCompatActivity {
                         }
 
 
-                        };
-                    });
-                };
+                    }
 
+                    ;
+                });
+    }
+
+    ;
 
 
 }

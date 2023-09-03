@@ -26,11 +26,11 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="2"
-                android:text="회원 가입"
-                android:textStyle="bold"
                 android:fontFamily="@font/apple"
                 android:gravity="center"
-                android:textSize="30dp" />
+                android:text="회원가입"
+                android:textSize="30dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <ScrollView
@@ -40,10 +40,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginRight="30dp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
 
                 <TextView
@@ -51,8 +51,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="이메일"
                     android:fontFamily="@font/apple"
+                    android:text="이메일"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -61,20 +61,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/apple"
                     android:ems="20"
+                    android:fontFamily="@font/apple"
                     android:hint="ex) sys@sys.com"
-                    android:textSize="15dp"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/signPWtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="비밀번호"
                     android:fontFamily="@font/apple"
+                    android:text="비밀번호"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -84,20 +84,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/apple"
                     android:ems="20"
+                    android:fontFamily="@font/apple"
                     android:hint="영문 포함 6자리 이상 입력"
-                    android:textSize="15dp"
                     android:inputType="textPassword"
-                    android:text="" />
+                    android:text=""
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/signPW2text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="비밀번호 확인"
                     android:fontFamily="@font/apple"
+                    android:text="비밀번호 확인"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -111,12 +111,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_marginBottom="20dp"
-                        android:fontFamily="@font/apple"
                         android:ems="20"
+                        android:fontFamily="@font/apple"
                         android:hint=" 비밀번호 확인 "
-                        android:textSize="15dp"
                         android:inputType="textPassword"
-                        android:text="" />
+                        android:text=""
+                        android:textSize="15dp" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/pwcheckbutton"
@@ -135,16 +135,16 @@
                     android:id="@+id/signupbutton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="@font/apple"
-                    android:text="회원가입 완료"
                     android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/buttonshape"
+                    android:fontFamily="@font/apple"
                     android:gravity="center"
+                    android:onClick="onSignupButtonClick"
+                    android:text="회원가입 완료"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:background="@drawable/buttonshape"
-                    android:onClick="onSignupButtonClick" />
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

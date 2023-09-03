@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
 import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.View;
@@ -31,7 +33,7 @@ import okhttp3.Response;
 import java.io.IOException;
 
 
-public class activity_keyword extends Activity  {
+public class activity_keyword extends Activity {
 
     private ListView listview;
     private ArrayList<String> items;
@@ -44,25 +46,25 @@ public class activity_keyword extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword);
         readkeywordToServer();
-        listview = findViewById(R.id.listView) ;
-        items = new ArrayList<String>() ;
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items) ;
+        listview = findViewById(R.id.listView);
+        items = new ArrayList<String>();
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, items);
 
         Button addButton = findViewById(R.id.addButton);
-        Button deleteButton = findViewById(R.id.deleteButton) ;
-        Button backButton = findViewById(R.id.backButton) ;
-        Button homeButton = findViewById(R.id.homeButton) ;
+        Button deleteButton = findViewById(R.id.deleteButton);
+        Button backButton = findViewById(R.id.backButton);
+        Button homeButton = findViewById(R.id.homeButton);
         Button noticeButton = findViewById(R.id.noticeButton);
 
 
-        listview.setAdapter(adapter) ;
+        listview.setAdapter(adapter);
 
 
         addButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {showEditTextDialog();}
-        }) ;
-
-
+            public void onClick(View v) {
+                showEditTextDialog();
+            }
+        });
 
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -78,12 +80,11 @@ public class activity_keyword extends Activity  {
                     items.remove(checked); // 리스트뷰에서 아이템 삭제
                     listview.clearChoices();
                     adapter.notifyDataSetChanged();
-                } else{
+                } else {
                     DeleteDialog(" 삭제할 예약어를 선택해주세요. ");
                 }
             }
         });
-
 
 
         backButton.setOnClickListener(v -> {
@@ -107,12 +108,6 @@ public class activity_keyword extends Activity  {
         });
 
 
-
-
-
-
-
-
     }
 
 
@@ -121,7 +116,7 @@ public class activity_keyword extends Activity  {
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/register_keyword";
+        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/register_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
@@ -153,7 +148,8 @@ public class activity_keyword extends Activity  {
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
-                        public void run(){}
+                        public void run() {
+                        }
                     });
 
                 }
@@ -162,13 +158,12 @@ public class activity_keyword extends Activity  {
     }
 
 
-
     private void sendDeleteRequestToServer(String keyword) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/delete_keyword";
+        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/delete_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + keyword + "\" }";
@@ -211,16 +206,15 @@ public class activity_keyword extends Activity  {
     }
 
 
-
     private void readkeywordToServer() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://dcc5-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-        String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
+        String requestBodyString = "{ \"user_id\": \"" + uid + "\"}";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
 
         Request request = new Request.Builder()
@@ -237,7 +231,8 @@ public class activity_keyword extends Activity  {
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {}
+                    public void run() {
+                    }
                 });
             }
 
@@ -246,14 +241,14 @@ public class activity_keyword extends Activity  {
                 if (!response.isSuccessful()) {
                     runOnUiThread(new Runnable() {
                         @Override
-                        public void run(){}
+                        public void run() {
+                        }
                     });
                 } else {
                     try {
                         String responseData = response.body().string();
                         JSONObject jsonObject = new JSONObject(responseData);
                         JSONArray keywordsArray = jsonObject.getJSONArray("keywords");
-
 
 
                         // 키워드를 items 리스트에 추가
@@ -302,12 +297,17 @@ public class activity_keyword extends Activity  {
                         showErrorMessage(" 이미 등록된 예약어입니다. ");
                     } else {
                         if (items.size() < 3) { // 리스트의 크기가 3개 미만인 경우에만 추가
-                            if(newKeyword.matches(englishRegex)){
+                            if (newKeyword.matches(englishRegex)) {
                                 showErrorMessage(" 영문 입력은 불가능합니다. ");
-                            }else {
-                                sendRequestToServer(newKeyword);
-                                items.add(newKeyword);
-                                adapter.notifyDataSetChanged();
+                            } else if (!(newKeyword.matches(englishRegex))) {
+                                if (newKeyword.length() >= 3 && newKeyword.length() <= 5) {
+                                    sendRequestToServer(newKeyword);
+                                    items.add(newKeyword);
+                                    adapter.notifyDataSetChanged();
+
+                                } else if (newKeyword.length() < 3 || newKeyword.length() > 5) {
+                                    showErrorMessage(" 예약어는 3글자에서 5글자까지 입력 가능합니다.");
+                                }
                             }
 
 
@@ -337,8 +337,6 @@ public class activity_keyword extends Activity  {
     }
 
 
-
-
     private boolean isKeywordDuplicate(String keyword) {
         for (String existingKeyword : items) {
             if (existingKeyword.equalsIgnoreCase(keyword)) {
@@ -360,7 +358,6 @@ public class activity_keyword extends Activity  {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 
 
     private void AddConfirmDialog() {
@@ -391,10 +388,6 @@ public class activity_keyword extends Activity  {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-
-
-
 
 
 }

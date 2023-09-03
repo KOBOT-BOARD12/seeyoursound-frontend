@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class activity_help extends AppCompatActivity {
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

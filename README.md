@@ -1,6 +1,5 @@
 # Project 'SeeYourSound' Frontend
 
----
 ### 1. 역할 및 임무 
 
 #### 앱의 전반적인 UI 디자인 및 구성 , 그리고 오디오 데이터를 추출하여 중앙 서버로 전송하는 일을 담당함.
@@ -27,7 +26,10 @@
 
 ---
 
-### 4. 실행 방법 
+### 4. 앱 실행 방법 
+~~~
+https://github.com/KOBOT-BOARD12/seeyoursound-frontend.git
+~~~
 
 
 

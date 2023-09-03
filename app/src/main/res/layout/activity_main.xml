@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    >
+    android:padding="16dp">
 
 
     <LinearLayout
@@ -23,7 +22,7 @@
             android:text="SeeYourSound"
             android:textAlignment="center"
             android:textSize="20dp"
-            />
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/helpButton"
@@ -123,8 +122,8 @@
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:adjustViewBounds="true"
             android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/south" />
 
     </LinearLayout>
@@ -145,8 +144,7 @@
         android:layout_gravity="center"
         android:background="@drawable/mic"
         android:fontFamily="@font/apple"
-        android:paddingStart="16dp"
-        />
+        android:paddingStart="16dp" />
 
 
     <TextView
