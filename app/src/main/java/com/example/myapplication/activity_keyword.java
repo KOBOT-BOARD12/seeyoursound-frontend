@@ -40,12 +40,14 @@ public class activity_keyword extends Activity {
     private ArrayAdapter adapter;
     private String uid;
 
-    String serverurl ;
+    String[] url;
+    String serverurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword);
-        serverurl = System.getenv("SERVERURL");
+        url = getResources().getStringArray(R.array.url);
+
         readkeywordToServer();
         listview = findViewById(R.id.listView);
         items = new ArrayList<String>();
@@ -115,9 +117,9 @@ public class activity_keyword extends Activity {
     private void sendRequestToServer(String message) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-
+        serverurl = url[3];
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = serverurl + "/register_keyword";
+        String serverUrl = serverurl ;
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
@@ -162,9 +164,9 @@ public class activity_keyword extends Activity {
     private void sendDeleteRequestToServer(String keyword) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-
+        serverurl = url[4];
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = serverurl + "/delete_keyword";
+        String serverUrl = serverurl ;
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + keyword + "\" }";
@@ -211,9 +213,9 @@ public class activity_keyword extends Activity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-
+        serverurl = url[5] ;
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = serverurl +"/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl ;
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);

@@ -7,7 +7,14 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="kakao_app_key">e7b336a8ca265d9c55e65943200f9a85</string>
+    <string-array name="url">
+        <item>https://41af-113-198-217-79.ngrok-free.app/ws</item>
+        <item>https://41af-113-198-217-79.ngrok-free.app/return_class</item>
+        <item>https://41af-113-198-217-79.ngrok-free.app/update_class</item>
+        <item>https://41af-113-198-217-79.ngrok-free.app/register_keyword</item>
+        <item>https://41af-113-198-217-79.ngrok-free.app/delete_keyword</item>
+        <item>https://41af-113-198-217-79.ngrok-free.app/return_keyword</item>
+    </string-array>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

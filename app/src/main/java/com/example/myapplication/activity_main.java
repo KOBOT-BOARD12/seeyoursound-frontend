@@ -84,14 +84,16 @@ public class activity_main extends Activity implements SensorEventListener {
     int count = 1;
     private boolean isAnimating = false;
     Button recordingButton;
-    String serverurl;
 
+    String[] url;
+    String serverurl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        serverurl = System.getenv("SERVERURL");
+        url = getResources().getStringArray(R.array.url);
+        serverurl = url[0];
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
@@ -147,7 +149,8 @@ public class activity_main extends Activity implements SensorEventListener {
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 
-            String serverUrl = serverurl + "/ws";
+            String serverUrl = serverurl ;
+
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -300,7 +303,6 @@ public class activity_main extends Activity implements SensorEventListener {
                 float currentRotation = logoImageView.getRotation();
                 logoImageView.setRotation(currentRotation);
                 logoImageView.clearAnimation();
-
                 recordingButton.setBackgroundResource(R.drawable.mic); // 추가된 부분
 
             }
@@ -375,9 +377,9 @@ public class activity_main extends Activity implements SensorEventListener {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
             return;
         }
-
+        String serverurl = url[1];
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = serverurl + "/return_class"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl ;
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);

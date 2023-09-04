@@ -1,7 +1,10 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+
+
 }
+
 
 android {
     namespace = "com.example.myapplication"
@@ -17,7 +20,9 @@ android {
     }
 
     buildTypes {
+
         release {
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -35,6 +40,10 @@ android {
         viewBinding = true
     }
 }
+
+
+
+
 
 dependencies {
 
