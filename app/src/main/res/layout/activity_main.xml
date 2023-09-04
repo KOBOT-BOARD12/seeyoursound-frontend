@@ -28,7 +28,7 @@
             android:id="@+id/helpButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="130dp"
             android:background="@drawable/help"
             android:fontFamily="@font/apple"
             android:textColor="#000000"

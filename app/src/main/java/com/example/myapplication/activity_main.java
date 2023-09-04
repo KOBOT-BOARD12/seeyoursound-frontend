@@ -158,7 +158,8 @@ public class activity_main extends Activity implements SensorEventListener {
             listener = new WebSocketListener() {
                 @Override
                 public void onOpen(@NonNull WebSocket webSocket, @NonNull okhttp3.Response response) {
-                    runOnUiThread(() -> updateStatusText("음성 인식 대기중 ...."));
+                    runOnUiThread(() -> updateStatusText("음성 인식이 시작되었습니다."));
+                    statusTextView.startAnimation(fadeout_Animation);
 
                 }
 
@@ -194,45 +195,49 @@ public class activity_main extends Activity implements SensorEventListener {
 
                                 if (keyword.equals("unknown")) {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 " + prediction_class + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 }
+
+
+
                             } else if (direction.equals("서쪽")) {
                                 animateWithFadeInOut(westImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(west_rotate);
-                                textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+
 
                                 if (keyword.equals("unknown")) {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 " + prediction_class + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 }
 
                             } else if (direction.equals("남쪽")) {
                                 animateWithFadeInOut(southImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(south_rotate);
-                                textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+
+
                                 if (keyword.equals("unknown")) {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 " + prediction_class + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 }
                             } else if (direction.equals("북쪽")) {
                                 animateWithFadeInOut(northImageView, fadein_Animation, fadeout_Animation);
                                 logoImageView.startAnimation(north_rotate);
-                                textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+
                                 if (keyword.equals("unknown")) {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 " + prediction_class + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 } else {
                                     runOnUiThread(() -> updateStatusText(direction + "에서 등록된 KEYWORD " + keyword + "가 탐지 되었습니다 ! "));
-                                    textFadeInOut(statusTextView, fadein_Animation, fadeout_Animation);
+                                    statusTextView.startAnimation(fadeout_Animation);
                                 }
                             }
 
@@ -259,35 +264,22 @@ public class activity_main extends Activity implements SensorEventListener {
                     }
                 }
 
-                private void textFadeInOut(TextView textView, Animation fadeinAnimation, Animation fadeoutAnimation) {
-                    if (!isAnimating) {
-                        isAnimating = true;
 
-                        textView.startAnimation(fadeinAnimation);
-
-
-                        new Handler().postDelayed(() -> {
-                            textView.startAnimation(fadeoutAnimation);
-
-                            isAnimating = false; // Reset animation flag
-                        }, 1000);
-                    }
-                }
 
 
                 @Override
                 public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-                    statusTextView.startAnimation(fadein_Animation);
                     runOnUiThread(() -> updateStatusText("음성 탐색이 중단되었습니다."));
                     statusTextView.startAnimation(fadeout_Animation);
                 }
 
                 @Override
                 public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, okhttp3.Response response) {
-                    statusTextView.startAnimation(fadein_Animation);
                     runOnUiThread(() -> updateStatusText("연결에 실패했습니다."));
                     statusTextView.startAnimation(fadeout_Animation);
                 }
+
+
 
 
             };
