@@ -40,11 +40,12 @@ public class activity_keyword extends Activity {
     private ArrayAdapter adapter;
     private String uid;
 
-
+    String serverurl ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword);
+        serverurl = System.getenv("SERVERURL");
         readkeywordToServer();
         listview = findViewById(R.id.listView);
         items = new ArrayList<String>();
@@ -116,7 +117,7 @@ public class activity_keyword extends Activity {
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/register_keyword";
+        String serverUrl = serverurl + "/register_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + message + "\" }";
@@ -163,7 +164,7 @@ public class activity_keyword extends Activity {
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/delete_keyword";
+        String serverUrl = serverurl + "/delete_keyword";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\", \"keyword\": \"" + keyword + "\" }";
@@ -212,7 +213,7 @@ public class activity_keyword extends Activity {
         uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/return_keyword"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl +"/return_keyword"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);

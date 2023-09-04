@@ -84,14 +84,14 @@ public class activity_main extends Activity implements SensorEventListener {
     int count = 1;
     private boolean isAnimating = false;
     Button recordingButton;
-
+    String serverurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        serverurl = System.getenv("SERVERURL");
         logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
@@ -147,7 +147,7 @@ public class activity_main extends Activity implements SensorEventListener {
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 
-            String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/ws";
+            String serverUrl = serverurl + "/ws";
 
             client = new OkHttpClient();
             request = new Request.Builder()
@@ -377,7 +377,7 @@ public class activity_main extends Activity implements SensorEventListener {
         }
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/return_class"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl + "/return_class"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}";
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);

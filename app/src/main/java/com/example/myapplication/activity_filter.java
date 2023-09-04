@@ -39,11 +39,13 @@ public class activity_filter extends AppCompatActivity {
     boolean sound2;
     boolean sound3;
     String uid;
-
+    String serverurl ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+
+        serverurl = System.getenv("SERVERURL");
         backButton = findViewById(R.id.backButton) ;
         homeButton = findViewById(R.id.homeButton);
         reservationButton = findViewById(R.id.reservationButton);
@@ -91,7 +93,7 @@ public class activity_filter extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/update_class";
+        String serverUrl = serverurl + "/update_class";
 
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 
@@ -172,7 +174,7 @@ public class activity_filter extends AppCompatActivity {
         String uid = user.getUid();
 
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = "https://41af-113-198-217-79.ngrok-free.app/return_class"; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl + "/return_class"; // FastAPI 서버의 URL을 입력하세요
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
