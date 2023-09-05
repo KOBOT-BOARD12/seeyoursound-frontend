@@ -50,12 +50,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
 
 
-public class activity_main extends Activity implements SensorEventListener {
+public class activity_main extends Activity {
 
-    private SensorManager sensorManager;
-    private Sensor gyroscopeSensor;
-    private Sensor sensor;
-    private float[] gyroscopeValues = new float[3];
     private static final int SAMPLE_RATE = 16000;
     private static final int CHANNEL_CONFIG = AudioFormat.CHANNEL_IN_STEREO;
     private static final int AUDIO_FORMAT = AudioFormat.ENCODING_PCM_16BIT;
@@ -69,7 +65,7 @@ public class activity_main extends Activity implements SensorEventListener {
     TextView statusTextView;
     private Request request;
     private WebSocketListener listener;
-    private float[] magneticFieldValues = new float[3];
+
     private String prediction_class;
     private String keyword;
     private String direction;
@@ -122,10 +118,8 @@ public class activity_main extends Activity implements SensorEventListener {
         logoImageView.startAnimation(rotationAnimation);
 
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
 
 
         recordingButton = findViewById(R.id.recordingButton);
@@ -144,9 +138,6 @@ public class activity_main extends Activity implements SensorEventListener {
 
         recordingButton.setOnClickListener(v -> {
 
-            sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-            gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
 
             String serverUrl = serverurl ;
@@ -335,36 +326,20 @@ public class activity_main extends Activity implements SensorEventListener {
         super.onResume();
 
 
-        sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
+
 
         if (isRecording) {
             stopRecording();
         }
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            gyroscopeValues = event.values;
-        } else if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            magneticFieldValues = event.values;
-        }
-    }
 
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // 센서의 정확도가 변경되었을 때 호출.
-
-    }
 
 
     private void startRecording() {
@@ -461,14 +436,7 @@ public class activity_main extends Activity implements SensorEventListener {
                     }
 
 
-                    // 방향 데이터 수집
-                    float x = gyroscopeValues[0]; // x축 값 (pitch)
-                    float y = gyroscopeValues[1]; // y축 값 (roll)
-                    float z = gyroscopeValues[2]; // z축 값 (yaw)
 
-                    float x1 = magneticFieldValues[0];
-                    float y2 = magneticFieldValues[1];
-                    float z3 = magneticFieldValues[2];
 
 
                     JSONObject jsonObject = new JSONObject();
@@ -476,12 +444,6 @@ public class activity_main extends Activity implements SensorEventListener {
                         jsonObject.put("top_channel", Base64.encodeToString(leftChannelData, Base64.DEFAULT));
                         jsonObject.put("bottom_channel", Base64.encodeToString(rightChannelData, Base64.DEFAULT));
                         jsonObject.put("uid", uid);
-                        jsonObject.put("gy_x", x);
-                        jsonObject.put("gy_y", y);
-                        jsonObject.put("gy_z", z);
-                        jsonObject.put("ma_x", x1);
-                        jsonObject.put("ma_y", y2);
-                        jsonObject.put("ma_z", z3);
                         jsonObject.put("class_0", sound0);
                         jsonObject.put("class_1", sound1);
                         jsonObject.put("class_2", sound2);
