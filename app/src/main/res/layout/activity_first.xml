@@ -61,7 +61,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <!-- 기존 TextView -->
+
             <TextView
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"

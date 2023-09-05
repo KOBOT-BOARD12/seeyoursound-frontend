@@ -71,7 +71,7 @@ public class activity_signup extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
                                 Toast.makeText(activity_signup.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
-                                // 회원가입 성공 후의 동작 구현
+
                                 Intent intent = new Intent(activity_signup.this, activity_main.class);
 
                                 startActivity(intent);
@@ -80,13 +80,10 @@ public class activity_signup extends AppCompatActivity {
                             } else {
                                 Exception exception = task.getException();
                                 if (exception instanceof FirebaseAuthUserCollisionException) {
-                                    // 이미 가입된 이메일인 경우
                                     showErrorMessage("이미 가입된 이메일입니다.");
                                 } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
-                                    // 이메일 형식이 올바르지 않은 경우
                                     showErrorMessage("유효하지 않은 이메일 형식입니다.");
                                 } else {
-                                    // 그 외의 실패 사유
                                     showErrorMessage("회원가입 실패: " + exception.getMessage());
                                 }
                             }

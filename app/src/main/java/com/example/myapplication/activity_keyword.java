@@ -254,7 +254,7 @@ public class activity_keyword extends Activity {
                         JSONArray keywordsArray = jsonObject.getJSONArray("keywords");
 
 
-                        // 키워드를 items 리스트에 추가
+
                         for (int i = 0; i < keywordsArray.length(); i++) {
                             items.add(keywordsArray.getString(i));
                         }

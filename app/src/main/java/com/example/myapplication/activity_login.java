@@ -55,10 +55,10 @@ public class activity_login extends AppCompatActivity {
                                 Toast.makeText(activity_login.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
 
-                                // 로그인 성공 후의 동작 구현
+
                                 Intent intent = new Intent(activity_login.this, activity_main.class);
                                 startActivity(intent);
-                                finish(); // 로그인 화면을 종료
+                                finish();
                             } else {
                                 Toast.makeText(activity_login.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                             }

@@ -177,7 +177,7 @@ public class activity_filter extends AppCompatActivity {
         String uid = user.getUid();
         serverurl = url[1] ;
         OkHttpClient client = new OkHttpClient();
-        String serverUrl = serverurl ; // FastAPI 서버의 URL을 입력하세요
+        String serverUrl = serverurl ;
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         String requestBodyString = "{ \"user_id\": \"" + uid + "\"}" ;
         RequestBody requestBody = RequestBody.create(mediaType, requestBodyString);
@@ -221,7 +221,7 @@ public class activity_filter extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                // UI 업데이트 코드 실행
+
                                 car_check.setChecked(sound0);
                                 dog_check.setChecked(sound1);
                                 siren_check.setChecked(sound2);

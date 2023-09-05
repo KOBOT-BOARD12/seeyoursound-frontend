@@ -94,7 +94,7 @@ public class activity_main extends Activity implements SensorEventListener {
         setContentView(R.layout.activity_main);
         url = getResources().getStringArray(R.array.url);
         serverurl = url[0];
-        logoImageView = findViewById(R.id.logo); // 이미지뷰 찾기
+        logoImageView = findViewById(R.id.logo);
         eastImageView = findViewById(R.id.east);
         westImageView = findViewById(R.id.west);
         southImageView = findViewById(R.id.south);
@@ -262,7 +262,7 @@ public class activity_main extends Activity implements SensorEventListener {
                         new Handler().postDelayed(() -> {
                             imageView.startAnimation(fadeoutAnimation);
 
-                            isAnimating = false; // Reset animation flag
+                            isAnimating = false;
                         }, 1000);
                     }
                 }
@@ -292,8 +292,8 @@ public class activity_main extends Activity implements SensorEventListener {
 
             if (!isRecording) {
                 startRecording();
-                isRecording = true; // 녹음 상태를 true로 설정
-                recordingButton.setBackgroundResource(R.drawable.during_mic); // 추가된 부분
+                isRecording = true;
+                recordingButton.setBackgroundResource(R.drawable.during_mic);
 
             } else {
                 // Stop 버튼은 녹음 중에만 활성화되도록 설정
@@ -334,7 +334,7 @@ public class activity_main extends Activity implements SensorEventListener {
     protected void onResume() {
         super.onResume();
 
-        // 액티비티가 재개될 때 센서 리스너를 등록합니다.
+
         sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -343,7 +343,6 @@ public class activity_main extends Activity implements SensorEventListener {
     @Override
     protected void onPause() {
         super.onPause();
-        // 액티비티가 일시 정지될 때 센서 리스너를 해제합니다.
         sensorManager.unregisterListener(this);
 
         if (isRecording) {
@@ -363,7 +362,7 @@ public class activity_main extends Activity implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // 센서의 정확도가 변경되었을 때 호출됩니다.
+        // 센서의 정확도가 변경되었을 때 호출.
 
     }
 
@@ -436,9 +435,10 @@ public class activity_main extends Activity implements SensorEventListener {
             }
         });
 
+        // 오디오 녹음 및 전송 부분
         audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT, BUFFER_SIZE);
 
-        byte[] buffer = new byte[BUFFER_SIZE];
+        byte[] buffer = new byte[BUFFER_SIZE]; // buffer 생성
 
         isRecording = true;
         audioRecord.startRecording();
@@ -447,7 +447,7 @@ public class activity_main extends Activity implements SensorEventListener {
             while (isRecording) {
                 int bytesRead = audioRecord.read(buffer, 0, buffer.length);
                 if (bytesRead > 0) {
-
+                    // 왼쪽 오른쪽으로 음성을 나눔
                     byte[] leftChannelData = new byte[bytesRead / 2];
                     byte[] rightChannelData = new byte[bytesRead / 2];
 
@@ -505,7 +505,7 @@ public class activity_main extends Activity implements SensorEventListener {
     }
 
     private void stopRecording() {
-        //녹음을 중지하고 웹소켓 연결을 종료하는 동안, UI 스레드가 블록되어 버튼을 다시 활성화하지 못할 수 있어서 new Thread 추가
+
         isRecording = false;
         if (webSocket != null) {
             webSocket.close(1000, "Recording stopped");

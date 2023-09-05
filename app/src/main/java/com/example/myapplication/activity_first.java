@@ -73,7 +73,7 @@ public class activity_first extends AppCompatActivity {
 
         log.setOnClickListener(new View.OnClickListener() {
 
-            // 로그인 버튼을 클릭했을 때 실행할 코드를 여기에 작성하세요
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity_first.this, activity_login.class);
@@ -85,7 +85,7 @@ public class activity_first extends AppCompatActivity {
         });
 
 
-        // 회원가입 버튼 클릭시, 회원가입 페이지로 이동
+
         sign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,7 @@ public class activity_first extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    // ... (기존 코드)
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -140,7 +140,7 @@ public class activity_first extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            // 로그인 성공 처리 (예: 다음 화면으로 이동)
+
                             Intent intent = new Intent(activity_first.this, activity_main.class);
                             startActivity(intent);
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
