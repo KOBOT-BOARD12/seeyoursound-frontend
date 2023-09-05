@@ -6,10 +6,10 @@
 
 ---
 
-### 2. 개발환경 및 SDK 버전  
+### 2. 개발환경 및 SDK,JDK 버전  
 * 개발환경 : 안드로이드 스튜디오 PHONE(**API 9.0**) / EMULATOR(**32.1.114**)  
 * 사용 언어 - **JAVA**
-* ~~~
+~~~
   defaultConfig {
         applicationId = "com.example.myapplication"
         minSdk = 28
@@ -19,7 +19,15 @@
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
   ~~~
----
+* java version
+  
+
+~~~
+    openjdk version "11.0.20" 2023-07-18 LTS
+    OpenJDK Runtime Environment Zulu11.66+15-CA (build 11.0.20+8-LTS)
+    OpenJDK 64-Bit Server VM Zulu11.66+15-CA (build 11.0.20+8-LTS, mixed mode)
+  ~~~
+
 
 ### 3. 앱 실행 방법 및 설명
 #### 3.1 앱 실행방법 
