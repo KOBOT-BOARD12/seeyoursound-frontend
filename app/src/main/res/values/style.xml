@@ -21,13 +21,6 @@
 
 
 
-    <style name="AlertDialogCustom2" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:buttonBarPositiveButtonStyle">@style/AlertDialogPositiveButton</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginRight">2dp</item>
-    </style>
-
 
 
 

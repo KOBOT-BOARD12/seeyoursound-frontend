@@ -350,7 +350,7 @@ public class activity_keyword extends Activity {
     }
 
     private void showErrorMessage(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
 
         builder.setMessage(message);
         builder.setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
@@ -364,7 +364,7 @@ public class activity_keyword extends Activity {
 
 
     private void AddConfirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder
                 .setMessage(" 예약어가 추가되었습니다 ! ")
                 .setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
@@ -379,7 +379,7 @@ public class activity_keyword extends Activity {
     }
 
     private void DeleteDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder
                 .setMessage(message)
                 .setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {

@@ -8,12 +8,12 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string-array name="url">
-        <item>https://41af-113-198-217-79.ngrok-free.app/ws</item>
-        <item>https://41af-113-198-217-79.ngrok-free.app/return_class</item>
-        <item>https://41af-113-198-217-79.ngrok-free.app/update_class</item>
-        <item>https://41af-113-198-217-79.ngrok-free.app/register_keyword</item>
-        <item>https://41af-113-198-217-79.ngrok-free.app/delete_keyword</item>
-        <item>https://41af-113-198-217-79.ngrok-free.app/return_keyword</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/ws</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/return_class</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/update_class</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/register_keyword</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/delete_keyword</item>
+        <item>https://fb68-113-198-217-79.ngrok-free.app/return_keyword</item>
     </string-array>
 
     <string name="lorem_ipsum">

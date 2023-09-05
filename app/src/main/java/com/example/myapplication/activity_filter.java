@@ -157,7 +157,7 @@ public class activity_filter extends AppCompatActivity {
     }
 
     private void confirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom2);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder
                 .setMessage(" 저장 되었습니다 ! ")
                 .setPositiveButton(" 확인 ", new DialogInterface.OnClickListener() {
