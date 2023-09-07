@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activity_filter">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="left"
+            android:background="@drawable/back"
+            android:fontFamily="@font/apple"
+            android:paddingStart="16dp"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/apple"
+            android:gravity="center"
+            android:text="클래스 필터링"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/apple"
+        android:text="듣고 싶은 소리를 \n체크해 주세요 "
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/car"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:src="@drawable/car" />
+
+
+        <CheckBox
+            android:id="@+id/car_check"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:checked="true"
+            android:text="자동차 경적소리"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/dog"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:src="@drawable/dog" />
+
+
+        <CheckBox
+            android:id="@+id/dog_check"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:checked="true"
+            android:text="개 짖는 소리"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/siren"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/siren" />
+
+
+        <CheckBox
+            android:id="@+id/siren_check"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:checked="true"
+            android:text="사이렌 소리"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:padding="20dp">
+
+
+        <ImageView
+            android:id="@+id/scream"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/scream" />
+
+        <CheckBox
+            android:id="@+id/scream_check"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="25dp"
+            android:checked="true"
+            android:text="비명 소리"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveButton"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/buttonshape"
+        android:drawableLeft="@drawable/eye3"
+        android:fontFamily="@font/apple"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:text="저장"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/homeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/push_home"
+
+            android:textColor="#000000" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reservationButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/push_reser"
+
+            android:textColor="#000000" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/noticeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/notice"
+
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

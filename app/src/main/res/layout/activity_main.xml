@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mainname"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/gmarket_sans_ttf_bold"
+            android:gravity="center"
+            android:text="SeeYourSound"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/helpButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="130dp"
+            android:background="@drawable/help"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/north"
+            android:layout_width="258dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/north" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/west"
+                android:layout_width="50dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/west" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/east"
+                android:layout_width="50dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/east" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/south"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/south" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:alpha="0.5"
+        android:background="#808080" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/recordingButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/mic"
+        android:fontFamily="@font/apple"
+        android:paddingStart="16dp" />
+
+
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="270dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="48dp"
+        android:fontFamily="@font/apple"
+        android:gravity="center"
+        android:text="음성 인식 대기 중 ..."
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:alpha="0.1"
+        android:background="#808080" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:gravity="center"
+
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/homeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/home"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reservationButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/push_reser"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/noticeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/push_notice"
+            android:fontFamily="@font/apple"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

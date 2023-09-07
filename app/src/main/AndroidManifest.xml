@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name = "android.permission.VIBRATE"/>
+    <application
+
+
+
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="SeeYourSound"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+
+
+
+
+        <activity
+            android:name=".activity_first"
+            android:exported="true"
+            android:label="SeeYourSound"
+            android:theme="@style/Theme.MyApplication">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity_main"
+            android:label="login" />
+
+        <activity android:name=".activity_signup"
+            android:label="signup" />
+        <activity
+            android:name=".activity_keyword"
+            android:configChanges="orientation|screenSize"
+            android:label="Send Message Activity" />
+
+        <activity
+            android:name=".activity_help"
+            android:label="help"/>
+
+        <activity
+            android:name=".activity_login"
+            android:label="model activity"/>
+        <activity
+            android:name=".activity_filter"
+            android:label="notice"/>
+    </application>
+
+</manifest>
